@@ -1413,29 +1413,53 @@ def uncached_lookup(big_tuple: tuple, number_to_find: int):
 def cached_lookup(big_tuple: tuple, number_to_find: int):
     return number_to_find in big_tuple
 
-t0 = time.time()
-lookup_count = 0
-for _ in range(100):
-    for i in range(1, 100):
-        _ = uncached_lookup(big_tuple, (size - (i * 10)))
-        lookup_count += 1
-t1 = time.time()
+@me_decorators.timer
+def lookup_testing(bt,sz,lookuptype='cached'):
+    lookup_count = 0
+    rng1 = 100
+    rng2 = 100
+
+    if lookuptype == 'cached':
+        func = cached_lookup
+    else:
+        func = uncached_lookup
+
+    for _ in range(rng1):
+        for i in range(1, rng2):
+            _ = func(bt, (sz - (i * 10)))
+            lookup_count += 1
+    
+    logger.info(f'{lookuptype} :: {lookup_count} lookups')
+
+lookup_testing(big_tuple,size,'uncached')
+lookup_testing(big_tuple,size,'cached')
+
+# t0 = time.time()
+# lookup_count = 0
+# for _ in range(100):
+#     for i in range(1, 100):
+#         _ = uncached_lookup(big_tuple, (size - (i * 10)))
+#         lookup_count += 1
+# t1 = time.time()
 
 #print(f'{lookup_count} uncached lookups took {t1 - t0:.10f}ms')
-logger.info(f'{lookup_count} uncached lookups took {t1 - t0:.10f}ms')
+#logger.info(f'{lookup_count} uncached lookups took {t1 - t0:.10f}ms')
 
-t0 = time.time()
+# t0 = time.time()
+# lookup_count = 0
+# for _ in range(100):
+#     for i in range(1, 100):
+#         _ = cached_lookup(big_tuple, size - (i * 10))
+#         lookup_count += 1
 
-lookup_count = 0
-for _ in range(100):
-    for i in range(1, 100):
-        _ = cached_lookup(big_tuple, size - (i * 10))
-        lookup_count += 1
-
-t1 = time.time()
+# t1 = time.time()
 
 #print(f'{lookup_count} uncached lookups took {t1 - t0:.10f}ms')
-logger.info(f'{lookup_count}   cached lookups took {t1 - t0:.10f}ms')
+#logger.info(f'{lookup_count}   cached lookups took {t1 - t0:.10f}ms')
+
+
+
+
 
 logger.info('end of practice')
 ## END

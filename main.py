@@ -25,7 +25,7 @@ def main():
 
     logger = logging.getLogger('MAIN')
 
-    if me_args.verbose > 0:
+    if me_args.verbose and me_args.log in ['debug']:
         logger.info(vars(me_args))
         logger.debug('Debug Logging initialized in main')
         logger.info('Info Logging initialized in main')

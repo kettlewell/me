@@ -64,6 +64,7 @@ def log_call(*a, **kw):
 
 def timer(func):
     """Print the runtime of the decorated function"""
+    logger = logging.getLogger(func.__name__)
     print("timer decorator")
     @wraps(func)
     def wrapper_timer(*args, **kwargs):
@@ -71,7 +72,8 @@ def timer(func):
         value = func(*args, **kwargs)
         end_time = time.perf_counter()      # 2
         run_time = end_time - start_time    # 3
-        print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+        #print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+        logger.info(f"Finished {func.__name__!r} in {run_time:.4f} secs")
         return value
     return wrapper_timer
 
