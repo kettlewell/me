@@ -6,17 +6,20 @@ I have no idea what this program will be in the end
 right now, it's just a playground for me
 
 """
+import importlib
+
 import logging
 import pprint as pp
 
 #import libs.me_globals
-#import libs.me_decorators
+import libs.me_decorators
 #import libs.me_lists
 
 import libs.me_argparse
 import libs.me_logging
 
 
+@libs.me_decorators.timer
 def main():
 
     # get and return the args from parsing the commandline options
@@ -36,14 +39,34 @@ def main():
     # determine if there are any global settings that need to be set
 
     if me_args.practice:
+        logger.info('has practice args')
         import scratchpad.practice as practice
         return
 
-    # if a function was set, call it with the args object
-    # that has the attributes we'd need in the call
-    if hasattr(me_args, 'func'):
-        me_args.func(me_args)
+    if hasattr(me_args, 'sub_parser_name') and me_args.sub_parser_name == 'ext':
+        logger.info('sub_parser_name ' + me_args.sub_parser_name)
+        
+        # check if there's a module attribute:
+        if hasattr(me_args, 'module'):
+            logger.info('module: ' + me_args.module )
+            try:
+                #mod = importlib.import_module(me_args.module)
+                #importlib.reload(mod)
+                spec = importlib.util.find_spec(me_args.module)
+                m = spec.loader.load_module()
+                
+                #logger.info('type of mod: ' + str(type(mod)))
+                #print(mod)
+            except ImportError as err:
+                logger.info('Import Module Error: ' + err)
+    
+        # if a function was set, call it with the args object
+        # that has the attributes we'd need in the call
+        if hasattr(me_args, 'func'):
+            logger.info('we have a fun in args')
+            me_args.func(me_args)
 
+    logger.info('END of MAIN')
 
 if __name__ == '__main__':
     main()

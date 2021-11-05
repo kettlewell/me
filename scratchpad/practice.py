@@ -20,6 +20,7 @@ import datetime
 import time
 import array
 import pdb
+from typing import Tuple
 
 from collections import deque
 import json
@@ -1431,8 +1432,36 @@ def lookup_testing(bt,sz,lookuptype='cached'):
     
     logger.info(f'{lookuptype} :: {lookup_count} lookups')
 
-lookup_testing(big_tuple,size,'uncached')
-lookup_testing(big_tuple,size,'cached')
+#lookup_testing(big_tuple,size,'uncached')
+#lookup_testing(big_tuple,size,'cached')
+
+# https://gist.github.com/svidovich/4b40335e19ff16ab3c10eb88aefbbeee
+@me_decorators.timer
+def generate_big_list(size) -> list:
+    big_list = list()
+    for _ in range(size):
+        #big_list.append(random.randint(1, 100))
+        big_list.append( int(random.random() * 100))
+    return big_list
+
+size = 1000000
+#big_list = generate_big_list(size)
+
+deduped_list = list()
+
+@me_decorators.timer
+def dedup_list_1():
+    for item in big_list:
+        if item not in deduped_list:
+            deduped_list.append(item)
+
+deduped_list = list()
+@me_decorators.timer
+def dedup_list_2():
+    deduped_list = list(set(big_list))
+
+#dedup_list_1()
+#dedup_list_2()
 
 # t0 = time.time()
 # lookup_count = 0
@@ -1458,8 +1487,121 @@ lookup_testing(big_tuple,size,'cached')
 #logger.info(f'{lookup_count}   cached lookups took {t1 - t0:.10f}ms')
 
 
+#https://gist.github.com/svidovich/515190eff7322cdb899b3e51ebb32e9d
 
 
+@me_decorators.timer
+def generate_big_list_and_big_set(size) -> Tuple[list, set]:
+    big_list = list()
+    big_set = set()
+    for _ in range(size):
+        number_to_append = int(random.random() * 100000000)
+        #number_to_append = random.randint(1, 100000000)
+        big_list.append(number_to_append)
+        big_set.add(number_to_append)
+    return big_list, big_set
+
+
+
+@me_decorators.timer
+def gen_big_list(size):
+    big_list = list()
+    for _ in range(size):
+        number_to_append = random.randint(1, 100000000)
+        big_list.append(number_to_append)
+    return big_list
+
+@me_decorators.timer
+def gen_big_set(size):
+    big_set = set()
+    for _ in range(size):
+        number_to_append = random.randint(1, 100000000)
+        big_set.add(number_to_append)
+    return big_set
+
+@me_decorators.timer
+def gen_numbers_randint(size,rand_range=100000000):
+    for _ in range(size):
+        random.randint(1, rand_range)
+
+@me_decorators.timer
+def gen_numbers_randfloat(size,rand_range=100000000):
+    for _ in range(size):
+        int(random.random() * rand_range)
+
+
+#size = 10000000
+#random_range = 10000
+#big_list, big_set = generate_big_list_and_big_set(size)
+
+#gen_numbers_randint(size,random_range)
+#gen_numbers_randfloat(size,random_range)
+
+
+#big_list = gen_big_list(size)
+#big_set = gen_big_set(size)
+
+@me_decorators.timer
+def cast_list_to_set(lst):
+    return set(lst)
+
+@me_decorators.timer
+def cast_set_to_list(st):
+    return list(st)
+
+#cast_list_to_set(big_list)
+#cast_set_to_list(big_set)
+
+
+lookup_count = 10000
+
+@me_decorators.timer
+def set_lookup_1():
+    for i in range(lookup_count):
+        _ = i in big_list
+
+@me_decorators.timer
+def set_lookup_2():
+    for i in range(lookup_count):
+        _ = i in big_set
+
+#set_lookup_1()
+#set_lookup_2()
+
+
+#size = 1000
+
+# https://gist.github.com/svidovich/667fa6da22d76a79ff9457cd212cbf99
+list_size = 10000000
+
+#big_list_1 = generate_big_list(list_size)
+#big_list_2 = generate_big_list(list_size)
+xored_list = list()
+
+@me_decorators.timer
+def xor_looping(big_list_1,big_list_2):
+    for item in big_list_1:
+        if item not in big_list_2:
+            xored_list.append(item)
+    for item in big_list_2:
+        if item not in big_list_1:
+            xored_list.append(item)
+
+@me_decorators.timer
+def xor_symmetric_differences(big_list_1,big_list_2):
+    xored_list = list(set(big_list_1).symmetric_difference(big_list_2))
+
+
+#xor_looping(big_list_1, big_list_2)
+#xor_symmetric_differences(big_list_1,big_list_2)
+
+
+# https://gist.github.com/svidovich/14ccdd51bd7f9cbfbf9f1821968a0f0b
+# https://medium.com/analytics-vidhya/hastily-constructed-precipitation-analysis-32e132dc1933
+
+def practice_demo(args):
+    logger.info("practice demo ")
+    pp.pprint(vars(args))
 
 logger.info('end of practice')
 ## END
