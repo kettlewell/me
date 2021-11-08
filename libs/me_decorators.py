@@ -7,9 +7,19 @@ import sys
 from functools import wraps
 from typing import Dict, List, Any
 import time
-#from time import time
-
 import libs.me_globals as me_globals
+
+def me_decorators(args=None):
+    # for decorators, I want the logger name to be from the calling function
+    # so it makes sense to set the name per method in this class
+    # [ though this method should really be located elsewhere, since it's not an actual decorator ]
+    logger = logging.getLogger('DECORATOR')
+    logger.info("me_decorator")
+
+    if args:
+        print(vars(args))
+        logger.info(vars(args))
+
 
 # decorator boilerplate:
 
