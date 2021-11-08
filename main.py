@@ -43,20 +43,17 @@ def main():
         import scratchpad.practice as practice
         return
 
-    if hasattr(me_args, 'sub_parser_name') and me_args.sub_parser_name == 'ext':
-        logger.info('sub_parser_name ' + me_args.sub_parser_name)
+#    if hasattr(me_args, 'sub_parser_name') and me_args.sub_parser_name == 'play':
+    if hasattr(me_args, 'sub_parser_name'):
+        logger.info('sub_parser_name: ' + me_args.sub_parser_name)
         
         # check if there's a module attribute:
         if hasattr(me_args, 'module'):
             logger.info('module: ' + me_args.module )
             try:
-                #mod = importlib.import_module(me_args.module)
-                #importlib.reload(mod)
                 spec = importlib.util.find_spec(me_args.module)
-                m = spec.loader.load_module()
-                
-                #logger.info('type of mod: ' + str(type(mod)))
-                #print(mod)
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)
             except ImportError as err:
                 logger.info('Import Module Error: ' + err)
     

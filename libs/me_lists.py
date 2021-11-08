@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-'''List based routines'''
+'''Lists based routines'''
 
-def me_lists(args):
-    print("me_lists...")
-    
+import logging
+
+logger = logging.getLogger('LISTS')
+
+def me_lists(args=None):
+    logger.info("me_lists")
+
     if args:
         print(vars(args))
-    me_lists_one(args)
-
-def me_lists_one(args):
-    print("me_lists_one")
+        logger.info(vars(args))
