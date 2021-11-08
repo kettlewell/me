@@ -11,3 +11,13 @@ def me_strings(args=None):
     if args:
         print(vars(args))
         logger.info(vars(args))
+
+    logger.info("hello as a stutter :  " + stutter('hello'))
+
+
+# STRING
+# create a stuttering type string response
+def stutter(word):
+    return word[:2] + '...' + word[:2] + '...' + word + '?'
+
+#print(stutter("Hello"))

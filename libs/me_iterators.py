@@ -11,3 +11,11 @@ def me_iterators(args=None):
     if args:
         print(vars(args))
         logger.info(vars(args))
+
+
+
+
+# ITERABLES
+# first value of an iterable
+def get_first_value(arr):
+    return arr[0]
