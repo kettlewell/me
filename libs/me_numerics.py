@@ -30,6 +30,21 @@ def me_numerics(args=None):
     logger.info(is_curzon(14))
     logger.info(rad_to_deg(50))
 
+    logger.info(int.as_integer_ratio(int(104.876)))
+
+    #round(10/11)
+    #print(round(10/11))
+
+
+    #print(complex(10,1))
+    #print(int('0b101',2))
+
+    iq = 100
+    user_age = int(iq / 5)
+    #print(user_age)
+
+
+
 
 # NUMERICS
 # area of a triangle

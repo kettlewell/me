@@ -110,34 +110,10 @@ I put all the calling code into the libs directory... I think that is incorrect,
 
 """
 import argparse
-import libs.me_lists
-import libs.me_dicts
-import libs.me_re
 
-import libs.me_scope
-import libs.me_functions
-import libs.me_truthy
-import libs.me_iterators
-import libs.me_lambdas
-import libs.me_generators
-import libs.me_tuples
-import libs.me_strings
-import libs.me_sets
-import libs.me_exceptions
-import libs.me_filedir
-import libs.me_unix
-import libs.me_networking_IPC
-import libs.me_threading
-import libs.me_multiprocessing
-import libs.me_async
-import libs.me_coroutine
-import libs.me_numerics
-import libs.me_comparisons
-import libs.me_compression
-import libs.me_internet
-import libs.me_decorators
-
+import libs
 import libs.me_modules
+
 import scratchpad.practice
 
 def me_parse():
@@ -297,6 +273,14 @@ def me_parse():
 
     # Create sub-sub parser for module sub-commands
     modules_subparser = modules_parser.add_subparsers(help="Modules sub commands", dest="modules_parser")
+
+    # astral module sub-command
+    modules_subparser_astral = modules_subparser.add_parser('astral', help="Modules astral Sub Command")
+    modules_subparser_astral.set_defaults(func=libs.modules.me_modules_astral.me_modules_astral, cmd='modules.astral')
+
+    # opencv module sub-command
+    modules_subparser_opencv = modules_subparser.add_parser('opencv', help="Modules opencv Sub Command")
+    modules_subparser_opencv.set_defaults(func=libs.modules.me_modules_opencv.me_modules_opencv, cmd='modules.opencv')
 
     # request module sub-command
     modules_subparser_requests = modules_subparser.add_parser('requests', help="Modules Requests Sub Command")
@@ -520,7 +504,7 @@ def me_parse():
  
     # inspect  module sub-command
     modules_subparser_requests = modules_subparser.add_parser('inspect', help="Modules inspect Sub Command")
-    modules_subparser_requests.set_defaults(func=libs.me_modules.me_modules_inspect, cmd='modules.inspect')
+    modules_subparser_requests.set_defaults(func=libs.modules.me_modules_inspect.me_modules_inspect, cmd='modules.inspect')
  
     # importlib  module sub-command
     modules_subparser_requests = modules_subparser.add_parser('importlib', help="Modules importlib Sub Command")

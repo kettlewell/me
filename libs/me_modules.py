@@ -2,12 +2,15 @@
 '''Modules based routines'''
 
 import logging
+import libs.modules
 
 logger = logging.getLogger('MODULES')
 
 def me_modules(args=None):
     logger.info("me_modules")
 
+    libs.modules.me_modules_astral(args)
+    libs.modules.me_modules_opencv(args)
     me_modules_requests(args)
     me_modules_datetime(args)                                                                                                                                                                                       
     me_modules_collections(args)                                                                                                                                                                                    
