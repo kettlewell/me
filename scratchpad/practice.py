@@ -38,11 +38,7 @@ import libs.me_decorators as me_decorators
 import libs.me_utilities
 
 logger = logging.getLogger('PRACTICE')
-
-
-
-
-
+logger.info("Importing practice.py")
 
 
 
@@ -678,7 +674,7 @@ with open('rando_file.txt', 'w') as f:
 
 with open('rando_file.txt', 'r') as f:
     json_loaded = json.load(f)
-#    pp.pprint(json_loaded)
+    #pp.pprint(json_loaded)
 
 
 #class MyClass:

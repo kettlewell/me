@@ -2,15 +2,17 @@
 '''Modules based routines'''
 
 import logging
-import libs.modules
+import libs.modules.me_modules_astral
+import libs.modules.me_modules_opencv
+import libs.modules.me_modules_inspect
 
 logger = logging.getLogger('MODULES')
 
 def me_modules(args=None):
     logger.info("me_modules")
 
-    libs.modules.me_modules_astral(args)
-    libs.modules.me_modules_opencv(args)
+    libs.modules.me_modules_astral.me_modules_astral(args)
+    libs.modules.me_modules_opencv.me_modules_opencv(args)
     me_modules_requests(args)
     me_modules_datetime(args)                                                                                                                                                                                       
     me_modules_collections(args)                                                                                                                                                                                    
@@ -74,7 +76,7 @@ def me_modules(args=None):
 
 
 def me_modules_requests(args=None):
-    logger.info("me_modules_requests")
+    logger.info("libs.me_modules.me_modules_requests")
 
     if args:
         print(vars(args))

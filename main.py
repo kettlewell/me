@@ -13,11 +13,13 @@ import pprint as pp
 
 #import libs.me_globals
 import libs.me_decorators
-#import libs.me_lists
-
 import libs.me_argparse
 import libs.me_logging
 
+# debugging
+#print("libs.me_argparse.__dict__  :")
+#print(libs.me_argparse.__dict__)
+#rint(' ')
 
 @libs.me_decorators.timer
 def main():
@@ -48,7 +50,7 @@ def main():
         logger.info('sub_parser_name: ' + me_args.sub_parser_name)
         
         # check if there's a module attribute:
-        if hasattr(me_args, 'module'):
+        if hasattr(me_args, 'modules'):
             logger.info('module: ' + me_args.module )
             try:
                 spec = importlib.util.find_spec(me_args.module)
