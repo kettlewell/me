@@ -10,6 +10,11 @@ logger = logging.getLogger('OPENCV')
 import cv2
 import numpy as np
 
+import matplotlib.pyplot as plt
+from matplotlib import colors
+from matplotlib import ticker
+from matplotlib.colors import LinearSegmentedColormap
+
 def me_modules_opencv(args=None):
     logger.info("me_modules_opencv")
 
@@ -19,11 +24,15 @@ def me_modules_opencv(args=None):
 
     #vid_test(args)
 
-
+    NIRPlantVideoTracking(args)
 
     # https://www.geeksforgeeks.org/face-detection-using-python-and-opencv-with-webcam/
-    webcam_create_data(args)
-    webcam_face_recognize(args)
+    #webcam_create_data(args)
+    #webcam_face_recognize(args)
+
+    # nieve approach to getting a list of webcam ids
+    # https://stackoverflow.com/a/62639343
+    #list_cams(args)
 
 def webcam_create_data(args):
 
@@ -46,7 +55,7 @@ def webcam_create_data(args):
     # These are sub data sets of folder,
     # for my faces I've used my name you can
     # change the label here
-    sub_data = 'me'	
+    sub_data = 'me2'	
 
     path = os.path.join(datasets, sub_data)
     if not os.path.isdir(path):
@@ -59,11 +68,12 @@ def webcam_create_data(args):
     # if you've any other camera
     # attached use '1' like this
     face_cascade = cv2.CascadeClassifier(haar_file)
-    webcam = cv2.VideoCapture(0)
+    webcam = cv2.VideoCapture(2)
+    cv2.normalize()
 
     # The program loops until it has 30 images of the face.
     count = 1
-    while count < 500:
+    while count < 50:
         (_, im) = webcam.read()
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, 1.3, 4)
@@ -120,7 +130,7 @@ def webcam_face_recognize(args):
 
     # Part 2: Use fisherRecognizer on camera stream
     face_cascade = cv2.CascadeClassifier(haar_file)
-    webcam = cv2.VideoCapture(0)
+    webcam = cv2.VideoCapture(2)
     while True:
         (_, im) = webcam.read()
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
@@ -174,4 +184,137 @@ def vid_test(args=None):
     cap.release()
     
     # Closes all the frames
+    cv2.destroyAllWindows()
+
+
+def list_cams(args):
+    """Test the ports and returns a tuple with the available ports and the ones that are working."""
+    is_working = True
+    dev_port = 0
+    working_ports = []
+    available_ports = []
+    max_ports = 20
+    while dev_port < max_ports:
+        try:
+            camera = cv2.VideoCapture(dev_port)
+            if camera.isOpened():
+            #    is_working = False
+            #    print("Port %s is not working." %dev_port)
+            #else:
+                is_reading, img = camera.read()
+                w = camera.get(3)
+                h = camera.get(4)
+                if is_reading:
+                    print("Port %s is working and reads images (%s x %s)" %(dev_port,h,w))
+                    working_ports.append(dev_port)
+                else:
+                    print("Port %s for camera ( %s x %s) is present but does not reads." %(dev_port,h,w))
+                    available_ports.append(dev_port)
+        except:
+            a,b,c = sys.exc_info()
+            print(a)
+            print(b)
+            print(c)
+
+        dev_port +=1
+    return available_ports,working_ports
+
+
+
+# from: https://github.com/MuonRay/Image-VideoSegmentationinNIRforPlantDetection/blob/master/NIRPlantVideoTracking.py
+
+def NIRPlantVideoTracking(args):
+
+    cap = cv2.VideoCapture(0)
+
+    #custom colormap for ndvi greyscale video
+    cols3 = ['gray', 'blue', 'green', 'yellow', 'red']
+
+    def create_colormap(args):
+        return LinearSegmentedColormap.from_list(name='custom1', colors=cols3)
+
+    #colour bar to match grayscale units
+    def create_colorbar(fig, image):
+            position = fig.add_axes([0.125, 0.19, 0.2, 0.05])
+            norm = colors.Normalize(vmin=-1., vmax=1.)
+            cbar = plt.colorbar(image,
+                                cax=position,
+                                orientation='horizontal',
+                                norm=norm)
+            cbar.ax.tick_params(labelsize=6)
+            tick_locator = ticker.MaxNLocator(nbins=3)
+            cbar.locator = tick_locator
+            cbar.update_ticks()
+            cbar.set_label("NDVI", fontsize=10, x=0.5, y=0.5, labelpad=-25)
+
+
+
+    while(1):
+
+        # Take each frame
+        _, frame = cap.read()
+
+        # Convert BGR to HSV
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+        # define range of red NIR vegetation color in HSV
+        low_red = np.array([160, 105, 84])
+        high_red = np.array([179, 255, 255])
+
+        # Threshold the HSV image to get only red colors
+        mask = cv2.inRange(hsv, low_red, high_red)
+
+        # Bitwise-AND mask and original image
+        res = cv2.bitwise_and(frame,frame, mask= mask)
+        
+        
+        #NDVI Processing
+        ir = (res[:,:,0]).astype('float')
+        r = (res[:,:,2]).astype('float')
+        
+        ndvi = np.true_divide(np.subtract(ir, r), np.add(ir, r))
+        
+        cols3 = ['gray', 'blue', 'green', 'yellow', 'red']
+        
+        def create_colormap(args):
+            return LinearSegmentedColormap.from_list(name='custom1', colors=cols3)
+        
+        #colour bar to match grayscale units
+        def create_colorbar(fig, image):
+            position = fig.add_axes([0.125, 0.19, 0.2, 0.05])
+            norm = colors.Normalize(vmin=-1., vmax=1.)
+            cbar = plt.colorbar(image,
+                                cax=position,
+                                orientation='horizontal',
+                                norm=norm)
+            cbar.ax.tick_params(labelsize=6)
+            tick_locator = ticker.MaxNLocator(nbins=3)
+            cbar.locator = tick_locator
+            cbar.update_ticks()
+            cbar.set_label("NDVI", fontsize=10, x=0.5, y=0.5, labelpad=-25)
+
+        
+        
+        image = plt.imshow(ndvi, cmap=create_colormap(colors))
+        #plt.axis('off')
+        #image = cv2.imshow(ndvi, cmap=create_colormap(colors))
+
+
+        cv2.imshow('frame',frame)
+        cv2.imshow('mask',mask)
+        cv2.imshow('res',res)
+        
+
+        #this step adds considerable processing, be sure to use only 720p files at most a minute long
+        #cv2.imshow('ndvi',ndvi)
+        
+        cv2.imshow('ndvi with color', ndvi)
+
+
+
+
+        k = cv2.waitKey(5) & 0xFF
+        if k == 27:
+            break
+
     cv2.destroyAllWindows()
