@@ -7,12 +7,20 @@ import pprint as pp
 logger = logging.getLogger('DICTS')
 
 def me_dicts(args=None):
-    logger.info("me_dicts")
+    logger.debug("me_dicts")
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+    d1 = {'name': 'tony', 'age': 23}
+    d2 = {'city': 'paris'}
+    merge_dicts(d1,d2)
 
+
+def merge_dicts(d1,d2):
+    logger.info(d1)
+    d1.update(d2)
+    logger.info(d1)
+    logger.info(d2)
+
+def from_practice(args):
     logger.info("Relation to Leia :  " + relation_to_luke('Leia'))
     logger.info("Relation to Vader:  " + relation_to_luke("Darth Vader"))
     logger.info("Relation to Han  :  " + relation_to_luke("Han"))

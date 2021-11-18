@@ -9,12 +9,18 @@ import logging
 logger = logging.getLogger('SETS')
 
 def me_sets(args=None):
-    logger.info("me_sets")
+    logger.debug("me_sets")
+    s1 = {0,1,2,3,4,0,3,2,1}
+    s2 = {11,22,33,44,33,22,11}
+    merge_sets(s1,s2)
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+def merge_sets(s1,s2):
+    logger.info(s1)
+    s1.update(s2)
+    logger.info(s1)
+    logger.info(s2)
 
+def from_practice(args):
     fruits = ["apple", "banana", "orange", "mango", "pineapple"]
     fruits_powerset = list(subsets(fruits))
     fruits_subsets_1to3 = list(subsets(fruits, min_size=1, max_size=3))

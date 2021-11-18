@@ -10,12 +10,41 @@ from libs.me_utilities import cmp_values as cv
 logger = logging.getLogger('LISTS')
 
 def me_lists(args=None):
-    logger.info("me_lists")
+    logger.debug("me_lists")
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+    l1 = [1,2,3,4]
+    l2 = ['batman']
+    merge_lists(l1,l2)
 
+    freq_list = [9,9,9,9,9,5,4,3,2,56,3,2,4]
+    most_frequent_elem(freq_list)
+
+    nested_list()
+    
+    dupe_list = [9,9,7,8,9,56,4,3,6,3,7]
+    de_dupe_list(dupe_list)
+
+
+def de_dupe_list(lst):
+    res = list(set(lst))
+    logger.info("de-duped list:  %s", res)
+
+def nested_list():
+    nums = [[num] for num in range(0,9)]
+    logger.info(nums)
+
+def most_frequent_elem(lst):
+    most_frequent = max(set(lst), key=lst.count)
+    logger.info(most_frequent)
+
+# in-place list merge of l2 into l1
+def merge_lists(l1,l2):
+    logger.info(l1)
+    l1.extend(l2)
+    logger.info(l1)
+    logger.info(l2)
+    
+def from_practice(args):
     # initialize lists
     squares = [1, 4, 9, 16, 25]    
 

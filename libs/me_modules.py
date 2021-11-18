@@ -253,12 +253,14 @@ def me_modules_io(args=None):
         logger.info(vars(args))
 
 def me_modules_time(args=None):
-    logger.info("me_modules_time")
+    logger.debug("me_modules_time")
+    
+    def gen_timestamp():
+        import time
+        logger.info(time.time())
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
-
+    gen_timestamp()
+    
 def me_modules_errno(args=None):
     logger.info("me_modules_errno")
 

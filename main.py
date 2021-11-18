@@ -17,9 +17,7 @@ import libs.me_argparse
 import libs.me_logging
 
 # debugging
-#print("libs.me_argparse.__dict__  :")
 #print(libs.me_argparse.__dict__)
-#rint(' ')
 
 @libs.me_decorators.timer
 def main():
@@ -41,17 +39,17 @@ def main():
     # determine if there are any global settings that need to be set
 
     if me_args.practice:
-        logger.info('has practice args')
+        logger.debug('has practice args')
         import scratchpad.practice as practice
         return
 
 #    if hasattr(me_args, 'sub_parser_name') and me_args.sub_parser_name == 'play':
     if hasattr(me_args, 'sub_parser_name'):
-        logger.info('sub_parser_name: ' + me_args.sub_parser_name)
+        logger.debug('sub_parser_name: ' + me_args.sub_parser_name)
         
         # check if there's a module attribute:
         if hasattr(me_args, 'modules'):
-            logger.info('module: ' + me_args.module )
+            logger.debug('module: ' + me_args.module )
             try:
                 spec = importlib.util.find_spec(me_args.module)
                 mod = importlib.util.module_from_spec(spec)
@@ -62,10 +60,10 @@ def main():
         # if a function was set, call it with the args object
         # that has the attributes we'd need in the call
         if hasattr(me_args, 'func'):
-            logger.info('we have a fun in args')
+            logger.debug('we have a fun in args')
             me_args.func(me_args)
 
-    logger.info('END of MAIN')
+    logger.debug('END of MAIN')
 
 if __name__ == '__main__':
     main()

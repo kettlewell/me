@@ -10,13 +10,27 @@ import libs.me_truthy as truthy
 logger = logging.getLogger('NUMERICS')
 
 def me_numerics(args=None):
-    logger.info("me_numerics")
+    logger.debug("me_numerics")
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+    oct_to_dec(10)
+    dec_to_oct(8)
+
+    q_and_r(6,5)
+
+def q_and_r(n1,n2):
+    q,r = divmod(n1,n2)
+    logger.info('quotient: %s  remainder: %s', q, r)
+    
+def dec_to_oct(num):
+    res = oct(num)
+    logger.info(res)
+
+def oct_to_dec(num):
+    res = int(str(num),8)
+    logger.info(res)
 
 
+def from_practice(args):
     logger.info(tri_area(10,10))
     logger.info(min_to_secs(3))
     logger.info(cubes(10))

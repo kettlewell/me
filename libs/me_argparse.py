@@ -698,7 +698,7 @@ def me_parse():
     args = parser.parse_args()    
 
     # debug messages
-    print("after re parsing args...")
-    print(vars(args))
+##    print("after re parsing args...")
+##    print(vars(args))
 
     return args
