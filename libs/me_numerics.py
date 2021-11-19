@@ -14,9 +14,14 @@ def me_numerics(args=None):
 
     oct_to_dec(10)
     dec_to_oct(8)
+    hex_to_dec()
 
     q_and_r(6,5)
 
+
+def hex_to_dec():
+    logger.info(int('da9',16))
+    
 def q_and_r(n1,n2):
     q,r = divmod(n1,n2)
     logger.info('quotient: %s  remainder: %s', q, r)

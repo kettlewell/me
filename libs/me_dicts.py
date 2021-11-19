@@ -13,12 +13,35 @@ def me_dicts(args=None):
     d2 = {'city': 'paris'}
     merge_dicts(d1,d2)
 
+    key_dict = {'one' : 1, 'four' : 4, 'eight' : 8 }
+    val_dict = {1 : 2, 3 : 4, 4 : 3, 2 : 1, 0 : 0}
+
+    sort_by_key(key_dict)
+    sort_by_val(val_dict)
+    sorted_keys(key_dict)
+    sorted_keys(val_dict)
+    
+
+def sorted_keys(d):
+    res1 = sorted(d.keys(), reverse=False)
+    res2 = sorted(d.keys(), reverse=True)
+    logger.info("sorted keys %s", res1)
+    logger.info("reverse sorted keys %s", res2)
+
+def sort_by_key(d):
+    res = {key: d[key] for key in sorted(d.keys())}
+    logger.info("sort dict by key %s", res)
+
+
+def sort_by_val(d):
+    res = {k: v for k, v in sorted(d.items(), key = lambda item: item[1])} 
+    logger.info("sort dict by key %s", res)
 
 def merge_dicts(d1,d2):
-    logger.info(d1)
+    #logger.info(d1)
     d1.update(d2)
-    logger.info(d1)
-    logger.info(d2)
+    logger.info("merged dicts: %s", d1)
+    #logger.info(d2)
 
 def from_practice(args):
     logger.info("Relation to Leia :  " + relation_to_luke('Leia'))

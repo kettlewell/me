@@ -6,14 +6,34 @@ import builtins
 import logging
 import libs.me_decorators
 
+import string
+
 logger = logging.getLogger('STRINGS')
 
 def me_strings(args=None):
-    logger.info("me_strings")
+    logger.debug("me_strings")
 
-    if args:
-        logger.info(vars(args))
+    lc_alphabet()
+    uc_alphabet()
+    str_digits()
+    str_with_digits = 'ABC123DEF456GHI789JKL'
+    remove_digits(str_with_digits)
 
+def remove_digits(str):
+    res = ''.join(list(filter(lambda x: x.isalpha(), str)))
+    logger.info("str with no digits: %s", res)
+
+def lc_alphabet():
+    logger.info(string.ascii_lowercase)
+
+def uc_alphabet():
+    logger.info(string.ascii_uppercase)
+
+def str_digits():
+    logger.info(string.digits)
+
+
+def from_practice(args):
     logger.info("hello as a stutter :  " + stutter('hello'))
 
     #search_help('builtins')

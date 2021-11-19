@@ -255,12 +255,18 @@ def me_modules_io(args=None):
 def me_modules_time(args=None):
     logger.debug("me_modules_time")
     
+    import time
+
     def gen_timestamp():
-        import time
         logger.info(time.time())
 
+    def gen_datetime():
+        logger.info(time.ctime())
+
     gen_timestamp()
-    
+    gen_datetime()
+
+
 def me_modules_errno(args=None):
     logger.info("me_modules_errno")
 

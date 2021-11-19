@@ -12,6 +12,9 @@ logger = logging.getLogger('LISTS')
 def me_lists(args=None):
     logger.debug("me_lists")
 
+    int_list = [1000,7,8,9,-56,4,6,3,-99]
+    str_int_list = ['1000','9','9','7','8','9','-56','4','3','6','3','7','-99']
+
     l1 = [1,2,3,4]
     l2 = ['batman']
     merge_lists(l1,l2)
@@ -24,6 +27,42 @@ def me_lists(args=None):
     dupe_list = [9,9,7,8,9,56,4,3,6,3,7]
     de_dupe_list(dupe_list)
 
+    asc_sort_list(int_list)
+    desc_sort_list(int_list)
+
+    map_str_int_list(str_int_list)
+
+    rotate_list(int_list, n=1)
+    rotate_list(int_list, n=2)
+    rotate_list(int_list, n=-1)
+    rotate_list(int_list, n=-2)
+
+
+def rotate_list(li,n=1):
+
+    rotate = 'right'
+    if n < 0:
+        rotate = 'left'
+    
+    res1 = li[n:] + li[:n]
+
+    logger.info("list: %s  rotation: %s  N: %s", li, rotate, n)
+    logger.info("res1 %s", res1)
+
+
+
+
+def map_str_int_list(lst):
+    res = list(map(int,lst))
+    logger.info("mapping str to int:  %s", res)
+
+def asc_sort_list(lst):
+    res = sorted(lst)
+    logger.info("asc sorted list: %s", res)
+
+def desc_sort_list(lst):
+    res = sorted(lst, reverse=True)
+    logger.info("asc sorted list: %s", res)
 
 def de_dupe_list(lst):
     res = list(set(lst))
