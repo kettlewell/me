@@ -37,6 +37,22 @@ def me_lists(args=None):
     rotate_list(int_list, n=-1)
     rotate_list(int_list, n=-2)
 
+    mat_list = [[1, 2, 3], [3, 4, 6], [5, 6, 7], [8, 9, 10]] 
+    matrix_transform(mat_list)
+
+def matrix_transform(mat):
+    res1 = list(list(x) for x in zip(*mat))
+    res2 = [list(x) for x in zip(*mat)]
+    res3 = [x for x in zip(*mat)]
+    
+    
+    logger.info("input matrix: %s", mat) 
+    logger.info(zip(*mat))
+    logger.info("transformed matrix: %s", res1) 
+    logger.info("transformed matrix: %s", res2) 
+    logger.info("transformed matrix: %s", res3) 
+
+    pass
 
 def rotate_list(li,n=1):
 

@@ -20,6 +20,26 @@ def me_dicts(args=None):
     sort_by_val(val_dict)
     sorted_keys(key_dict)
     sorted_keys(val_dict)
+    extract_dict_subset()
+
+# python cookbook 1.17 - extracting a subset of a dictionary
+def extract_dict_subset():
+    prices = {
+        'ACME': 45.23,
+        'AAPL': 612.78,
+        'IBM': 205.67,
+        'HPQ': 37.20,
+        'FB': 10.75
+    }
+    
+    p1 = { key:val for key,val in prices.items() if val > 40}
+    
+    tech_names = { 'AAPL', 'IBM', 'HPQ', 'MSFT'}
+    p2 = { key:val for key,val in prices.items() if key in tech_names}
+    
+    logger.info(p1)
+    logger.info(p2)
+    
     
 
 def sorted_keys(d):
