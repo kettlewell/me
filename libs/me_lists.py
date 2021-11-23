@@ -40,6 +40,17 @@ def me_lists(args=None):
     mat_list = [[1, 2, 3], [3, 4, 6], [5, 6, 7], [8, 9, 10]] 
     matrix_transform(mat_list)
 
+    list_subset_selection()
+    
+
+def list_subset_selection():
+    mylist = [1, 4, -5, 10, -7, 2, 3, -1]
+    pos_list = [n for n in mylist if n > 0]
+    logger.info(pos_list)
+    neg_list = [n for n in mylist if n < 0]
+    logger.info(neg_list)
+    
+    
 def matrix_transform(mat):
     res1 = list(list(x) for x in zip(*mat))
     res2 = [list(x) for x in zip(*mat)]

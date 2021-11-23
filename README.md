@@ -4,11 +4,13 @@ Me is a personal python playground to explore and capture snippets of code to le
 # command line args ( still a work in progress )
 
 ```shell
-usage: main.py [-h] [--practice] [--verbose] [--log {debug,info,warning,error,critical}] {a,b} ...
+usage: main.py [-h] [--practice] [--verbose] [--log {debug,info,warning,error,critical}]
+               {lists,dicts,decorators,re,scope,functions,truthy,iterators,lambdas,generators,tuples,strings,sets,exceptions,filedir,unix,networking,threading,multiprocessing,async,coroutine,numerics,comparisons,compression,internet,play,modules}
+               ...
 
 Demo program that highlights a lot of functionality of the python programming language.
 
-optional arguments:
+options:                           
   -h, --help            show this help message and exit
   --practice, -p        practice runs
   --verbose, -v         verbose levels
@@ -18,8 +20,33 @@ optional arguments:
 subcommands:
   Sub commands for executing specific code blocks
 
-  {a,b}                 Available Subcommands
-    a                   A sub-command help
-    b                   B sub-command help
-
+  {lists,dicts,decorators,re,scope,functions,truthy,iterators,lambdas,generators,tuples,strings,sets,exceptions,filedir,unix,networking,threading,multiprocessing,async,coroutine,numerics,comparisons,compression,internet,play,modules}
+                        Available Subcommands
+    lists               lists commands
+    dicts               dicts commands
+    decorators          decorator commands
+    re                  regex commands
+    scope               Scope commands
+    functions           Function (builtin) commands
+    truthy              Truthy commands
+    iterators           Iterators commands
+    lambdas             Lambdas commands
+    generators          generators commands
+    tuples              tuples commands
+    strings             Strings commands
+    sets                sets commands
+    exceptions          Exceptions commands
+    filedir             File and Directory commands
+    unix                Unix commands
+    networking          Networking and IPC commands
+    threading           Threading commands
+    multiprocessing     Multiprocessing commands
+    async               async commands
+    coroutine           coroutine commands
+    numerics            numerics commands
+    comparisons         comparison commands
+    compression         Compression commands
+    internet            Internet commands
+    play                Play sub-command help
+    modules             Modules commands
 ```
