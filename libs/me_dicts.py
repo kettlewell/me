@@ -40,7 +40,6 @@ def extract_dict_subset():
     logger.info(p1)
     logger.info(p2)
     
-    
 
 def sorted_keys(d):
     res1 = sorted(d.keys(), reverse=False)
