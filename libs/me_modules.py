@@ -141,11 +141,43 @@ def me_modules_pprint(args=None):
         logger.info(vars(args))
 
 def me_modules_math(args=None):
-    logger.info("me_modules_math")
+    logger.debug("me_modules_math")
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+    import sys
+
+    import math
+    import cmath
+    
+    logger.info("sys.maxsize: %s", sys.maxsize)
+    logger.info("log2(mathsize): %s", math.log(sys.maxsize, 2))
+    logger.info("sys.int_info: %s", sys.int_info)
+    
+    logger.info("math.frexp(): %s", math.frexp(8.066E+67))
+    try:
+        logger.info(math.sqrt(-2))
+    except:
+        logger.error("unable to compute sqrt of -2")
+    logger.info(cmath.sqrt(-2))
+
+    # using floor div and modulo to compute H:M:S from given seconds
+    total_seconds = 7385
+    hours = total_seconds // 3600
+    remaining_seconds = total_seconds % 3600    
+    minutes = remaining_seconds // 60
+    seconds = remaining_seconds % 60
+    logger.info("hours:min:secs (%s:%s:%s)", hours, minutes, seconds)
+
+    # alternate form, using divmod()
+    hours,remaining_seconds = divmod(total_seconds, 3600)
+    minutes, seconds = divmod(remaining_seconds,60)
+    logger.info("hours:min:secs (%s:%s:%s)", hours, minutes, seconds)
+
+    hours = total_seconds / 3600
+    logger.info("hours: %s", hours)
+    logger.info("hours(rounded 10): %s", round(hours,10))
+    logger.info("hours(rounded 5): %s", round(hours,5))
+    logger.info("hours(rounded 3): %s", round(hours,3))
+
 
 def me_modules_random(args=None):
     logger.info("me_modules_random")
@@ -457,11 +489,25 @@ def me_modules_timeit(args=None):
         logger.info(vars(args))
 
 def me_modules_sys(args=None):
-    logger.info("me_modules_sys")
+    logger.debug("me_modules_sys")
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+    import sys
+
+    logger.info(sys.builtin_module_names)
+    
+    a = "life is beautiful"
+    b = "life is beautiful"
+    logger.info("id(a): %s", id(a))
+    logger.info("id(b): %s", id(b))
+
+    a = sys.intern("life is beautiful")
+    b = sys.intern("life is beautiful")
+
+    logger.info("id(a): %s", id(a))
+    logger.info("id(b): %s", id(b))
+    
+
+    
 
 def me_modules_sysconfig(args=None):
     logger.info("me_modules_sysconfig")

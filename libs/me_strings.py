@@ -19,9 +19,143 @@ def me_strings(args=None):
     str_with_digits = 'ABC123DEF456GHI789JKL'
     remove_digits(str_with_digits)
 
+    s1 = "thistt"
+    s2 = "histt"
+    anagram(s1,s2)
+    
+    rewrite_immutable()
+    
+    '''
+    Builtin Types List:
+    str
+    int
+    float
+    complex
+    list
+    tuple
+    range
+    dict
+    set
+    frozenset
+    bool
+    bytes
+    bytearray
+    memoryview
+    '''
+    str_type = str()
+    int_type = int()
+    float_type = float()
+    complex_type = complex()
+    lst_type = list()
+    tuple_type = tuple()
+    range_type = range(0)
+    dict_type = dict()
+    set_type = set()
+    frozenset_type = frozenset()
+    bool_type = bool()
+    bytes_type = bytes()
+    bytearray_type = bytearray()
+    memoryview_type = memoryview(bytearray_type)   
+
+    obj_functions(str_type)
+    obj_functions(int_type)    
+    obj_functions(float_type)
+
+    obj_functions(complex_type)
+    obj_functions(lst_type)
+    obj_functions(tuple_type)
+    obj_functions(range_type)
+    obj_functions(dict_type)
+    obj_functions(set_type)
+    obj_functions(frozenset_type)
+    obj_functions(bool_type)
+    obj_functions(bytes_type)
+    obj_functions(bytearray_type)
+    obj_functions(memoryview_type)
+
+
+    
+def obj_functions(obj='str', pub=True, pri=False, dunder=False, gen_func=False):
+    """
+    Get a list of all the functions/methods available to arbitrary objects
+    
+    @param obj: object type
+    @param pub: public methods
+    @param pri: private methods
+    @param dunder: dunder methods
+    @param gen_func: generate the function def template for the type module test files.
+    
+    """ 
+    import re
+    
+    obj_type = type(obj).__name__
+    logger.debug("Object Type:  %s", obj_type)
+    
+    if pub:
+        pub_pattern = '^[0-9a-zA-Z]'
+        pub_funcs = [func for func in dir(obj) if re.search(pub_pattern,func)]
+        logger.info(pub_funcs)
+
+        if gen_func:
+            for pub_func in pub_funcs:
+                print("def {}_{}(): {{ }}".format(obj_type, pub_func))
+        
+        print()
+        
+    if dunder:
+        dunder_pattern = '^__[0-9a-zA-Z]'
+        dunder_funcs = [func for func in dir(obj) if re.search(dunder_pattern,func)]
+        logger.info(dunder_funcs)
+        if gen_func:
+            for dunder_func in dunder_funcs:
+                print("def {}_{}(): {{ }}".format(obj_type, dunder_func))
+        print()
+            
+    if pri:
+        pri_pattern = '^_[0-9a-zA-Z]'
+        pri_funcs = [func for func in dir(obj) if re.search(pri_pattern,func)]
+        logger.info(pri_funcs)
+        if gen_func:
+            for pri_func in pri_funcs:
+                print("def {}_{}(): {{ }}".format(obj_type, pri_func))
+        print()
+    
+
+# we can't really re-write a string
+# but we can use recipes to copy the string back to itself
+def rewrite_immutable():
+    title = "Recipe 5: some immutable string, with, punctuation"
+    
+    colon_position = title.index(":")
+
+    logger.info("colon_position: %s", colon_position)
+
+    pre_colon, post_colon = title[:colon_position], title[colon_position+1:]
+
+    logger.info("pre_colon: %s", pre_colon)
+    logger.info("post_colon: %s", post_colon)
+
+    pre_colon, middle, post_colon = title.partition(':')
+    logger.info("pre_colon: %s", pre_colon)
+    logger.info("middle: %s", middle)
+    
+    logger.info("post_colon: %s", post_colon)
+
+    print()
+    
+def anagram(s1,s2):
+    from collections import Counter
+    logger.info(Counter(s1))
+    logger.info(Counter(s2))
+    
+    logger.info("anagram") if Counter(s1) == Counter(s2) else logger.info("NOT anagram")
+    
+    print()
+    
 def remove_digits(str):
     res = ''.join(list(filter(lambda x: x.isalpha(), str)))
     logger.info("str with no digits: %s", res)
+    print()
 
 def lc_alphabet():
     logger.info(string.ascii_lowercase)

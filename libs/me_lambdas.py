@@ -6,8 +6,11 @@ import logging
 logger = logging.getLogger('LAMBDAS')
 
 def me_lambdas(args=None):
-    logger.info("me_lambdas")
+    logger.debug("me_lambdas")
 
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+    list_filter()
+
+def list_filter():
+    lst = [x for x in range(50)]
+    res = list(filter(lambda x: x%2 == 0, lst))
+    logger.info(res)

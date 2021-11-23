@@ -42,6 +42,71 @@ def me_lists(args=None):
 
     list_subset_selection()
     
+    unpack_list(int_list)
+    
+    operator_star_copy()
+
+    my_list = append_to(12)
+    logger.info("my_list: %s", my_list)
+    my_other_list = append_to(42)
+    logger.info("my_other_list: %s", my_other_list)
+    
+    are_they_same()
+       
+def are_they_same():
+    
+    a = "blah"
+    b = "blah"
+    logger.info("id(a): %s", id(a))
+    logger.info("id(b): %s", id(b))
+    
+    if a is b:
+        logger.info("A is B")
+    else:
+        logger.info("A NOT B")
+    
+    a = "left"
+    b = "right"
+    
+    logger.info("id(a): %s", hex(id(a)))
+    logger.info("id(b): %s", hex(id(b)))
+    
+    if a is b:
+        logger.info("A is B")
+    else:
+        logger.info("A NOT B")
+# https://ep2020.europython.eu/media/conference/slides/DLWTgr3-object-internals.pdf        
+def append_to(elem, to=[]):
+    logger.info("id(to): %s", id(to))
+    to.append(elem)
+    return to
+
+def operator_star_copy():
+
+    L = [[0]*3]*3
+    logger.info(L)
+    logger.info("id(L): %s", id(L))
+    L[0][0] = 1
+
+    logger.info(id(L))
+
+    logger.info(id(L[0]))
+    logger.info(id(L[1]))
+    
+    logger.info(id(L[0][0]))
+    logger.info(id(L[1][0]))
+    
+    
+    
+def unpack_list(lst):
+    first,*middle,last = lst
+    logger.info(lst)
+    logger.info(first)
+    logger.info(middle)
+    logger.info(last)
+    
+    
+    pass
 
 def list_subset_selection():
     mylist = [1, 4, -5, 10, -7, 2, 3, -1]
