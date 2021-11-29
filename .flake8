@@ -1,0 +1,29 @@
+[flake8]
+ignore=
+    WPS,
+    E203,
+    E266,
+    E501,
+    W503,
+    E800,
+    WPS201,
+    WPS202,
+    WPS226,
+    WPS402,
+    WPS111,
+    WPS432,
+    WPS453,
+    WPS221,
+    WPS213,
+    WPS210,
+    WPS301,
+    WPS336,
+    WPS231,
+    WPS232,
+    WPS223
+    
+
+max-line-length=119
+select=B,C,E,F,W,T,B
+max-complexity=18
+    

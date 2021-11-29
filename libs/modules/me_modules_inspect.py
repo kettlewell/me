@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
-'''inspect module tests'''
+"""inspect module tests"""
 import os
 import inspect
 import pprint as pp
 
 import logging
-logger = logging.getLogger('INSPECT')
+
+logger = logging.getLogger("INSPECT")
+
 
 def me_modules_inspect(args=None):
-    logger.info("me_modules_inspect")
-
-    if args:
-        print(vars(args))
-        logger.info(vars(args))
+    logger.debug("me_modules_inspect")
 
     inspect_testing(args)
 
-def inspect_testing(args):
-    
 
+def inspect_testing(args):
 
     module_path3 = inspect.getfile(inspect.currentframe())
     module_path4 = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -31,5 +28,6 @@ def inspect_testing(args):
 
     # filename at bottom of stack
     pp.pprint(inspect.stack()[-1][1])
+
 
 #    pp.pprint(inspect.stack())
