@@ -34,6 +34,8 @@ ignore=
     WPS432,
     WPS464,
     WPS305,
+    WPS111,
+    WPS213,
     T001,
     C812
 
@@ -42,6 +44,8 @@ allowed-domain-names=
     data
     val
     item
+    foo
+    bar
     
 max-line-length=110
 select=B,C,E,F,W,T,B
