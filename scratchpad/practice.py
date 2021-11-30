@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 __name__ = "practice"  # noqa: WPS125
 # import functools
 # from functools import cache, reduce
@@ -527,7 +528,7 @@ squares2 = list(map(lambda x: x ** 2, range(10)))
 squares3 = [x ** 2 for x in range(10)]
 # print(squares3)
 
-combs = [[x, y] for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
+combs = [[x, y] for x in [1, 2, 3] for y in [3, 1, 4] if x != y]  # noqa: WPS441 WPS335
 # print(combs)
 
 
@@ -613,7 +614,7 @@ tel["guido"] = 4127
 # print('jack' not in tel)
 
 # d2 = dict([("sape", 4139), ("guido", 4127), ("jack", 4098)])
-d2 = {[("sape", 4139), ("guido", 4127), ("jack", 4098)]}
+d2 = dict([("sape", 4139), ("guido", 4127), ("jack", 4098)])  # noqa: C406
 # print(d2)
 
 d3 = {x: x ** 2 for x in range(0, 12, 2)}
@@ -822,7 +823,8 @@ def multiplier():
 def mult(data):
     prod = 1
     for x in data:
-        prod = prod * x
+        # prod = prod * x
+        prod *= x
     return prod
 
 
@@ -856,7 +858,7 @@ fib_cache = {}
 
 def fib3(n):
     if n in fib_cache:
-        return fib_cache[n]
+        return fib_cache.get(n)
 
     if n == 1:
         val = 1
@@ -1105,7 +1107,7 @@ pairs = [(1, "one"), (3, "three"), (2, "two"), (4, "four")]
 tuples = [(1, 2, 3), (2, 3, 4), (2, 5, 6), (1, 7, 9), (3, 1, 1), (1, 4, 1)]
 
 # tuples.sort(key=itemgetter(0,2))
-tuples.sort(key=lambda tuple: tuple[0], reverse=False)
+tuples.sort(key=lambda tpl: tpl[0], reverse=False)
 # pp.pprint(tuples)
 # pp.pprint(pairs.sort(key=lambda pair: pair[0]))
 # pp.pprint(sorted_pairs)

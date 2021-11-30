@@ -13,7 +13,7 @@ def log_values(expected, actual):
         logger.error("[ERROR] [ACTUAL] : " + str(actual) + "  [EXPECTED] : " + str(expected))
 
 
-def cmp_values(expected, actual):
+def cmp_values(expected, actual):  # noqa: CCR001
 
     # intialize types not same
     sameType = True
@@ -61,14 +61,16 @@ def cmp_values(expected, actual):
     if sameType:
         return actual == expected
     else:
-        return False
+        return False  # noqa: WPS503
 
 
-def obj_functions(obj="str", pub=True, pri=False, dunder=False, gen_func=False):
+def obj_functions(  # noqa: WPS210 WPS213 CCR001
+    ob="str", pub=True, pri=False, dunder=False, gen_func=False
+):
     """
     Get a list of all the functions/methods available to arbitrary objects
 
-    @param obj: object type
+    @param ob: object type
     @param pub: public methods
     @param pri: private methods
     @param dunder: dunder methods
@@ -77,36 +79,36 @@ def obj_functions(obj="str", pub=True, pri=False, dunder=False, gen_func=False):
     """
     import re
 
-    obj_type = type(obj).__name__
-    logger.debug("Object Type:  %s", obj_type)
+    ob_type = type(ob).__name__
+    logger.debug("Object Type:  %s", ob_type)
 
     if pub:
         pub_pattern = "^[0-9a-zA-Z]"
-        pub_funcs = [func for func in dir(obj) if re.search(pub_pattern, func)]
+        pub_funcs = [func for func in dir(ob) if re.search(pub_pattern, func)]
         logger.info(pub_funcs)
 
         if gen_func:
             for pub_func in pub_funcs:
-                print("def {}_{}(): \n    pass\n\n".format(obj_type, pub_func))
+                print("def {}_{}(): \n    pass\n\n".format(ob_type, pub_func))
 
             for pub_func in pub_funcs:
-                print("{}_{}()".format(obj_type, pub_func))
+                print("{}_{}()".format(ob_type, pub_func))
         print()
 
     if dunder:
         dunder_pattern = "^__[0-9a-zA-Z]"
-        dunder_funcs = [func for func in dir(obj) if re.search(dunder_pattern, func)]
+        dunder_funcs = [func for func in dir(ob) if re.search(dunder_pattern, func)]
         logger.info(dunder_funcs)
         if gen_func:
             for dunder_func in dunder_funcs:
-                print("def {}_{}(): {{ }}".format(obj_type, dunder_func))
+                print("def {}_{}(): {{ }}".format(ob_type, dunder_func))
         print()
 
     if pri:
         pri_pattern = "^_[0-9a-zA-Z]"
-        pri_funcs = [func for func in dir(obj) if re.search(pri_pattern, func)]
+        pri_funcs = [func for func in dir(ob) if re.search(pri_pattern, func)]
         logger.info(pri_funcs)
         if gen_func:
             for pri_func in pri_funcs:
-                print("def {}_{}(): {{ }}".format(obj_type, pri_func))
+                print("def {}_{}(): {{ }}".format(ob_type, pri_func))
         print()

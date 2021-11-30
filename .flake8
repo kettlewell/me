@@ -1,29 +1,48 @@
 [flake8]
+per-file-ignores =
+    libs/modules/me_modules_sys.py:WPS420
+    libs/me_utilities.py:WPS420
+    practice.py:WPS111 WPS442 WPS420 WPS430 WPS441
 ignore=
-    WPS,
+    B901,
+    EXE002,
     E203,
     E266,
     E501,
     W503,
     E800,
+    WPS331,
+    WPS112,
+    WPS114,
     WPS201,
-    WPS202,
+    WPS203,
     WPS226,
-    WPS402,
-    WPS111,
-    WPS432,
-    WPS453,
-    WPS221,
-    WPS213,
-    WPS210,
-    WPS301,
-    WPS336,
+    WPS462,
+    WPS326,
     WPS231,
+    WPS421,
+    WPS223,
+    WPS202,
+    WPS433,
+    WPS301,
+    WPS440,
     WPS232,
-    WPS223
-    
+    WPS221,
+    WPS336,
+    WPS323,
+    WPS402,
+    WPS432,
+    WPS464,
+    WPS305,
+    T001,
+    C812
 
-max-line-length=119
+allowed-domain-names=
+    result
+    data
+    val
+    item
+    
+max-line-length=110
 select=B,C,E,F,W,T,B
 max-complexity=18
-    
