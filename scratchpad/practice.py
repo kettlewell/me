@@ -6,7 +6,11 @@ __name__ = "practice"  # noqa: WPS125
 from functools import lru_cache
 
 import math
-import struct
+
+# import struct
+
+# for md5sum
+import hashlib
 
 # import simpleaudio
 from itertools import repeat, chain
@@ -25,6 +29,13 @@ from collections import deque
 import time
 
 from functools import wraps
+
+from datetime import datetime
+import pytz
+
+# import re
+import pandas as pd
+import numpy as np
 
 import libs.me_decorators as me_decorators  # noqa: WPS301
 from libs.me_utilities import obj_functions
@@ -65,7 +76,7 @@ bytes_type = bytes()  # noqa: WPS351
 bytearray_type = bytearray()
 memoryview_type = memoryview(bytearray_type)
 
-obj_functions(str_type, gen_func=True)
+#    obj_functions(str_type, gen_func=True)
 #    obj_functions(int_type)
 #    obj_functions(float_type)
 
@@ -958,9 +969,9 @@ def sleep(func):
     return wrapper
 
 
-@sleep
-def wakeup():
-    print("Get up! Your break is over.")
+# @sleep
+# def wakeup():
+#    print("Get up! Your break is over.")
 
 
 # wakeup()
@@ -1097,8 +1108,8 @@ def get_samples():
     return lambda note: get_wave(*parse_note(note)) if note else get_pause(1 / 8)
 
 
-samples_f = chain.from_iterable(get_samples(n) for n in f"{P1},{P1},{P2}".split(","))
-samples_b = b"".join(struct.pack("<h", int(f * 30000)) for f in samples_f)
+# samples_f = chain.from_iterable(get_samples(n) for n in f"{P1},{P1},{P2}".split(","))
+# samples_b = b"".join(struct.pack("<h", int(f * 30000)) for f in samples_f)
 # simpleaudio.play_buffer(samples_b, 1, 2, F)
 # print(sys.getsizeof(greet_me))
 
@@ -1107,7 +1118,7 @@ pairs = [(1, "one"), (3, "three"), (2, "two"), (4, "four")]
 tuples = [(1, 2, 3), (2, 3, 4), (2, 5, 6), (1, 7, 9), (3, 1, 1), (1, 4, 1)]
 
 # tuples.sort(key=itemgetter(0,2))
-tuples.sort(key=lambda tpl: tpl[0], reverse=False)
+# tuples.sort(key=lambda tpl: tpl[0], reverse=False)
 # pp.pprint(tuples)
 # pp.pprint(pairs.sort(key=lambda pair: pair[0]))
 # pp.pprint(sorted_pairs)
@@ -1122,7 +1133,7 @@ def generate_big_tuple(size) -> tuple:
 
 
 size = random.randrange(1500, 2000)
-
+size = 5
 big_tuple = generate_big_tuple(size)
 
 # @me_decorators.log_call(CRITICAL=True)
@@ -1176,17 +1187,17 @@ def generate_big_list(size) -> list:
     return big_list
 
 
-size = 1000000
-big_list = generate_big_list(size)
+size = 10
+# big_list = generate_big_list(size)
 
 deduped_list = []
 
 
-@me_decorators.timer
-def dedup_list_1():
-    for item in big_list:
-        if item not in deduped_list:
-            deduped_list.append(item)
+# @me_decorators.timer
+# def dedup_list_1():
+#    for item in big_list:
+#        if item not in deduped_list:
+#            deduped_list.append(item)
 
 
 # deduped_list = []
@@ -1276,7 +1287,7 @@ def gen_numbers_randfloat(size, rand_range=100000000):
 # gen_numbers_randint(size,random_range)
 # gen_numbers_randfloat(size,random_range)
 
-
+size = 3
 big_list = gen_big_list(size)
 big_set = gen_big_set(size)
 
@@ -1295,7 +1306,7 @@ def cast_set_to_list(st):
 # cast_set_to_list(big_set)
 
 
-lookup_count = 10000
+lookup_count = 10
 
 
 @me_decorators.timer
@@ -1317,7 +1328,7 @@ def set_lookup_2():
 # size = 1000
 
 # https://gist.github.com/svidovich/667fa6da22d76a79ff9457cd212cbf99
-list_size = 10000000
+list_size = 10
 
 # big_list_1 = generate_big_list(list_size)
 # big_list_2 = generate_big_list(list_size)
@@ -1347,9 +1358,267 @@ def xor_looping(big_list_1, big_list_2):
 # https://medium.com/analytics-vidhya/hastily-constructed-precipitation-analysis-32e132dc1933
 
 
+# https://leetcode.com/problems/lru-cache/discuss/1609364/Python.-Very-simple.-O(1)-Faster-than-80
+
+# Alternate to explore later:
+#    https://leetcode.com/problems/lru-cache/discuss/1628098/Python-Faster-Than-97-Using-Dictionary
+#
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.__capacity = capacity
+        self.__cache = {}
+
+    def get(self, val: int) -> int:
+        key = self.getmd5(val)
+        if key not in self.__cache.keys():
+            return -1
+        else:
+            val = self.__cache[key]
+            self.__cache.pop(key)
+            self.__cache[key] = val
+            return val
+
+    def put(self, val: int) -> None:
+        key = self.getmd5(val)
+        logger.info("key: %s\n", key)
+
+        if key in self.__cache.keys():
+            self.__cache.pop(key)
+        self.__cache[key] = val
+        if len(self.__cache.keys()) > self.__capacity:
+            keyToRemove = next(iter(self.__cache.keys()))
+            self.__cache.pop(keyToRemove)
+
+    def getmd5(self, val):
+        return hashlib.md5(str(val).encode()).hexdigest()
+
+    def printlrucache(self):
+        pp.pprint(self.__cache)
+
+
+def read_pandas():
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import matplotlib
+
+    matplotlib.use("TkAgg")
+
+    # Make the graphs a bit prettier, and bigger
+    #    plt.style.use("ggplot")
+    plt.rcParams["figure.figsize"] = (45, 7)
+
+    df = pd.read_csv("./input/metrics_demo2.csv")
+    #    print(metrics_df[:3])
+    #    pp.pprint(metrics_df[["latency", "timestamp"]][:5])
+
+    #    pp.pprint(metrics_df.iloc[3])
+    # metrics_df["timestamp"].plot(x="name", y="age", kind="bar")
+    # pp.pprint(matplotlib.get_backend())
+
+    for x, y in df[:5].iterrows():
+        pp.pprint(x)
+        pp.pprint(y)
+        print()
+
+    print()
+    print()
+    for i in list(df):
+        print(df[i][0])
+
+    print()
+    print()
+
+    # columns = list(df[:5])
+    # for i in columns:
+    #     pp.pprint(df[i])
+    print(df.head(3))
+    print(df[:2])
+    print(list(df))
+    for i in df[:5].itertuples():
+        print(i)
+
+    for name, data in df[:5].iteritems():
+        print("NAME: ", name)
+        print("DATA: ", data.values)
+
+    plt.plot(df[["latency", "timestamp"]])
+
+
+#    plt.show()
+
+# https://mmas.github.io/read-apache-access-log-pandas
+def parse_str(x):
+    return x[1:-1]
+
+
+def parse_datetime(x):
+    dt = datetime.strptime(x[1:-7], "%d/%b/%Y:%H:%M:%S")
+    dt_tz = int(x[-6:-3]) * 60 + int(x[-3:-1])
+    return dt.replace(tzinfo=pytz.FixedOffset(dt_tz))
+
+
+def read_httpd_log_with_pandas():
+
+    #    print(parse_str("[my string]"))
+    #    print(parse_datetime("13/Nov/2015:11:45:42 +0000"))
+    print()
+    data = pd.read_csv(
+        "/home/matt/httpd.log",
+        sep=r'\s(?=(?:[^"]*"[^"]*")*[^"]*$)(?![^\[]*\])',
+        engine="python",
+        na_values="-",
+        header=None,
+        usecols=[0, 3, 4, 5, 6, 7, 8],
+        names=["ip", "time", "request", "status", "size", "referer", "user_agent"],
+        converters={
+            "time": parse_datetime,
+            "request": parse_str,
+            "status": int,
+            "size": int,
+            "referer": parse_str,
+            "user_agent": parse_str,
+        },
+    )
+    return data
+
+
+def split_request(data):
+    request = data.pop("request").str.split()
+    data["url"] = request.str[1]
+    data["action"] = request.str[0]
+    data["proto"] = request.str[2]
+    return data
+
+
+def get_iris_data():
+    data = pd.read_csv(
+        "/home/matt/iris.data",
+        header=None,
+        usecols=[0, 1, 2, 3, 4],
+        names=["sepal_width", "sepal_length", "petal_width", "petal_length", "class"],
+    )
+    return data
+
+
+def moving_avg(data, window):
+    dma = data.copy()
+    dma["MA"] = dma.rolling(window=window).mean()
+    return dma
+
+
 def practice_demo(args):
     logger.info("practice demo ")
-    pp.pprint(vars(args))
+
+    # lru = LRUCache(5)
+    # lru.printlrucache()
+    # lru.put(10)
+    # lru.printlrucache()
+    # lru.put(20)
+    # lru.printlrucache()
+    # lru.put(30)
+    # lru.printlrucache()
+    # lru.put(40)
+    # lru.printlrucache()
+    # lru.put(50)
+    # lru.printlrucache()
+    # lru.put(60)
+    #   lru.printlrucache()
+    #    lru.put(70)
+    #    lru.printlrucache()
+
+    # logger.info(lru.get(10))
+    # logger.info(lru.get(20))
+    # logger.info(lru.get(30))
+    # logger.info(lru.get(40))
+    # logger.info(lru.get(50))
+    # logger.info(lru.get(60))
+    # logger.info(lru.get(70))
+
+    # read_pandas()
+
+    # pd.set_option("max_colwidth", 35)
+    data = read_httpd_log_with_pandas()
+
+    # print(data.head())
+
+    #    split_request(data)
+    #    print(data.head())
+    print()
+    #    print(data.groupby("status").get_group(403))
+    #    print()
+    #    print(data.groupby("status").get_group(200))
+
+    print(data.info(verbose=True))
+    print()
+    for x in data.columns:
+        print(x)
+
+    print(data.attrs)
+    print(data.axes)
+    print(data.ndim)
+    print(data.loc[[2, 3, 4, 5], "status"])
+    iris_data = get_iris_data()
+    # print()
+    #   print(iris_data.head())
+
+    # print()
+
+    # print(iris_data.groupby("class").get_group("Iris-setosa"))
+    # print()
+    groups = iris_data.groupby("class").groups
+    #    print(groups.keys())
+
+    group_class = iris_data.groupby("class")
+    #    for name, group in group_class:
+    #        print(name)
+    #        # print(group)
+
+    class_agg = group_class.aggregate(np.sum)
+    #    print(class_agg)
+    class_sum = group_class.sum()
+    #    print()
+    #    print()
+    #    print(class_sum)
+    #    print(group_class.size())
+    #    print()
+    #    print(group_class.describe())
+    #    print()
+    #    print(group_class.nunique())
+    #    print()
+    #    print(group_class.std())
+
+    #    print()
+    #    print(group_class["sepal_width"].agg([np.sum, np.mean, np.std]))
+
+    #    print()
+    # print(
+    #     group_class.agg(
+    #         max_sepal_width=pd.NamedAgg(column="sepal_width", aggfunc=max),
+    #         min_sepal_width=pd.NamedAgg(column="sepal_width", aggfunc="min"),
+    #         mean_sepal_width=pd.NamedAgg(column="sepal_width", aggfunc=np.mean),
+    #         range_sepal_width=pd.NamedAgg(column="sepal_width", aggfunc=lambda x: max(x) - min(x)),
+    #     ),
+    # )
+
+    #    print(iris_data.head())
+    transformed = group_class.transform(lambda x: x.fillna(x.mean()))
+    #    print(transformed)
+
+    # print()
+
+    dma = iris_data["sepal_width"].to_frame()
+    #    dma.to_frame()
+    # print(type(dma))
+    # print(dma.head(10))
+    # print()
+    dma["MA"] = dma.rolling(window=5).mean()
+    # print(type(dma))
+    # print(dma.head(10))
+
+    # print()
+
+    ma_5_iris = moving_avg(iris_data["sepal_width"].to_frame(), 5)
+    # print(ma_5_iris)
 
 
 logger.info("end of practice")

@@ -2,6 +2,7 @@
 """Lists based routines"""
 
 import logging
+import re
 
 from libs.me_utilities import log_values as lv
 from libs.me_utilities import cmp_values as cv
@@ -52,6 +53,30 @@ def me_lists(args=None):
     logger.info("my_other_list: %s", my_other_list)
 
     are_they_same()
+
+    l1 = ["1", "2", "3", "4", "5", "6", "7", "8", "*", "oracle-instantclient*"]
+    l2 = ["2", "4", "6", "8", "9", "10", "11", "1", "*", "oracle-instantclient**"]
+    intersect_lists(l1, l2)
+
+
+# List1 is expected list
+# list2 is actual list
+# Used in check_packages to determine packages that exist in both expected and actual lists
+def intersect_lists(list1, list2):
+    """Intersect Lists"""
+    intersect_list = [val for val in list1 if val in list2]
+    for item in intersect_list:
+        print("item: {0}\n".format(item))
+
+    # intersect_list = [val for val in list1 if val in list2]
+    # use pattern matching because the original checks above fail to match rpm packages with wildcard *.  Example: oracle-instantclient
+    intersect_list2 = []
+    for x in list1:
+        x = x.translate(None, "*")
+        r = re.compile(x)
+        if filter(r.match, list2):
+            intersect_list2.append(x)
+    return intersect_list2
 
 
 def are_they_same():
