@@ -51,7 +51,7 @@ def main():
         return
 
     #    if hasattr(me_args, 'sub_parser_name') and me_args.sub_parser_name == 'play':
-    if hasattr(me_args, "sub_parser_name"):
+    if getattr(me_args, "sub_parser_name"):
 
         logger.debug(
             "sub_parser_name: " + me_args.sub_parser_name
