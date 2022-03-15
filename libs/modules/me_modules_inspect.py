@@ -18,7 +18,11 @@ def me_modules_inspect(args=None):
 def inspect_testing(args):
 
     module_path3 = inspect.getfile(inspect.currentframe())
-    module_path4 = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    module_path4 = os.path.dirname(
+        os.path.abspath(
+            inspect.getfile(inspect.currentframe())
+        )
+    )
 
     logger.info("module_path3: " + module_path3)
     logger.info("module_path4: " + module_path4)

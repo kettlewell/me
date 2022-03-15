@@ -529,17 +529,19 @@ queue.popleft()
 
 squares = []
 for x in range(10):
-    squares.append(x ** 2)
+    squares.append(x**2)
 
 # print(squares)
 
-squares2 = list(map(lambda x: x ** 2, range(10)))
+squares2 = list(map(lambda x: x**2, range(10)))
 # print(squares2)
 
-squares3 = [x ** 2 for x in range(10)]
+squares3 = [x**2 for x in range(10)]
 # print(squares3)
 
-combs = [[x, y] for x in [1, 2, 3] for y in [3, 1, 4] if x != y]  # noqa: WPS441 WPS335
+combs = [
+    [x, y] for x in [1, 2, 3] for y in [3, 1, 4] if x != y
+]  # noqa: WPS441 WPS335
 # print(combs)
 
 
@@ -554,7 +556,7 @@ vec3 = [abs(x * 2) for x in vec]
 # stripped_fruit = [weapon.strip() for weapon in freshfruit]
 # print(stripped_fruit)
 
-sqr_tuples = [(x, x ** 2) for x in range(10)]
+sqr_tuples = [(x, x**2) for x in range(10)]
 # print(sqr_tuples)
 
 fat_vec = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -594,7 +596,14 @@ matrix = [
 # print(t3)
 
 
-basket = {"apple", "orange", "apple", "pear", "orange", "banana"}
+basket = {
+    "apple",
+    "orange",
+    "apple",
+    "pear",
+    "orange",
+    "banana",
+}
 # pp.pprint(basket)
 # print('oranged' in basket)
 
@@ -625,10 +634,12 @@ tel["guido"] = 4127
 # print('jack' not in tel)
 
 # d2 = dict([("sape", 4139), ("guido", 4127), ("jack", 4098)])
-d2 = dict([("sape", 4139), ("guido", 4127), ("jack", 4098)])  # noqa: C406
+d2 = dict(
+    [("sape", 4139), ("guido", 4127), ("jack", 4098)]
+)  # noqa: C406
 # print(d2)
 
-d3 = {x: x ** 2 for x in range(0, 12, 2)}
+d3 = {x: x**2 for x in range(0, 12, 2)}
 # print(d3)
 
 
@@ -638,7 +649,14 @@ d3 = {x: x ** 2 for x in range(0, 12, 2)}
 # for i,v in enumerate(d3):
 #    print(i,v)
 
-basket = ["apple", "orange", "apple", "pear", "orange", "banana"]
+basket = [
+    "apple",
+    "orange",
+    "apple",
+    "pear",
+    "orange",
+    "banana",
+]
 # print(type(basket))
 
 basket_set = set(basket)
@@ -732,7 +750,9 @@ def rev_data(data):
 #            print(line)
 
 
-now = date.today().strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B.")
+now = date.today().strftime(
+    "%m-%d-%y. %d %b %Y is a %A on the %d day of %B."
+)
 # print(now)
 
 # print(now.strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B."))
@@ -772,20 +792,29 @@ s = b"witch which has which witches wrist watch"
 
 # full_name = lambda fn, ln: fn.strip().title() + " " + ln.strip().title()
 def full_name():
-    return lambda fn, ln: fn.strip().title() + " " + ln.strip().title()
+    return (
+        lambda fn, ln: fn.strip().title()
+        + " "
+        + ln.strip().title()
+    )
 
 
 # print(full_name("first", " last "))
 
 
-namelist = ["name4 A. Zast4", "name1 Cast1", "name2 Bast2", "name3 Aast3"]
+namelist = [
+    "name4 A. Zast4",
+    "name1 Cast1",
+    "name2 Bast2",
+    "name3 Aast3",
+]
 # print(namelist)
 namelist.sort(key=lambda name: name.split(" ")[-1].lower())
 # print(namelist)
 
 
 def build_quad(a, b, c):
-    return lambda x: a * x ** 2 + b * x + c
+    return lambda x: a * x**2 + b * x + c
 
 
 f = build_quad(2, 3, -5)
@@ -954,7 +983,7 @@ def measuretime(func):
 
 @measuretime
 def wastetime():
-    sum([i ** 2 for i in range(1000000)])
+    sum([i**2 for i in range(1000000)])
 
 
 # wastetime()
@@ -1057,7 +1086,10 @@ def debug(print_result=False):
         @wraps(func)
         def out(*args, **kwargs):
             result = func(*args, **kwargs)
-            print(func.__name__, result if print_result else "")
+            print(
+                func.__name__,
+                result if print_result else "",
+            )
             return result
 
         return out
@@ -1093,7 +1125,9 @@ def sin_f():
 
 
 def get_wave():
-    return lambda hz, seconds: (sin_f(i, hz) for i in range(int(seconds * F)))
+    return lambda hz, seconds: (
+        sin_f(i, hz) for i in range(int(seconds * F))
+    )
 
 
 def get_hz():
@@ -1101,11 +1135,18 @@ def get_hz():
 
 
 def parse_note():
-    return lambda note: (get_hz(note[:2]), 1 / 4 if "♩" in note else 1 / 8)
+    return lambda note: (
+        get_hz(note[:2]),
+        1 / 4 if "♩" in note else 1 / 8,
+    )
 
 
 def get_samples():
-    return lambda note: get_wave(*parse_note(note)) if note else get_pause(1 / 8)
+    return (
+        lambda note: get_wave(*parse_note(note))
+        if note
+        else get_pause(1 / 8)
+    )
 
 
 # samples_f = chain.from_iterable(get_samples(n) for n in f"{P1},{P1},{P2}".split(","))
@@ -1115,7 +1156,14 @@ def get_samples():
 
 
 pairs = [(1, "one"), (3, "three"), (2, "two"), (4, "four")]
-tuples = [(1, 2, 3), (2, 3, 4), (2, 5, 6), (1, 7, 9), (3, 1, 1), (1, 4, 1)]
+tuples = [
+    (1, 2, 3),
+    (2, 3, 4),
+    (2, 5, 6),
+    (1, 7, 9),
+    (3, 1, 1),
+    (1, 4, 1),
+]
 
 # tuples.sort(key=itemgetter(0,2))
 # tuples.sort(key=lambda tpl: tpl[0], reverse=False)
@@ -1469,7 +1517,15 @@ def read_httpd_log_with_pandas():
         na_values="-",
         header=None,
         usecols=[0, 3, 4, 5, 6, 7, 8],
-        names=["ip", "time", "request", "status", "size", "referer", "user_agent"],
+        names=[
+            "ip",
+            "time",
+            "request",
+            "status",
+            "size",
+            "referer",
+            "user_agent",
+        ],
         converters={
             "time": parse_datetime,
             "request": parse_str,
@@ -1495,7 +1551,13 @@ def get_iris_data():
         "/home/matt/iris.data",
         header=None,
         usecols=[0, 1, 2, 3, 4],
-        names=["sepal_width", "sepal_length", "petal_width", "petal_length", "class"],
+        names=[
+            "sepal_width",
+            "sepal_length",
+            "petal_width",
+            "petal_length",
+            "class",
+        ],
     )
     return data
 
@@ -1504,6 +1566,14 @@ def moving_avg(data, window):
     dma = data.copy()
     dma["MA"] = dma.rolling(window=window).mean()
     return dma
+
+
+def play(args):
+    logger.info("practice play()")
+
+
+def weather(args):
+    logger.info("practice weather()")
 
 
 def practice_demo(args):
@@ -1601,7 +1671,9 @@ def practice_demo(args):
     # )
 
     #    print(iris_data.head())
-    transformed = group_class.transform(lambda x: x.fillna(x.mean()))
+    transformed = group_class.transform(
+        lambda x: x.fillna(x.mean())
+    )
     #    print(transformed)
 
     # print()
@@ -1617,7 +1689,9 @@ def practice_demo(args):
 
     # print()
 
-    ma_5_iris = moving_avg(iris_data["sepal_width"].to_frame(), 5)
+    ma_5_iris = moving_avg(
+        iris_data["sepal_width"].to_frame(), 5
+    )
     # print(ma_5_iris)
 
 

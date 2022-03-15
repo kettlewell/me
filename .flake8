@@ -7,7 +7,9 @@ ignore=
     B901,
     EXE002,
     E203,
+    E265, # Space after Comment
     E266,
+    E402, # Import not at top of file
     E501,
     W503,
     E800,
