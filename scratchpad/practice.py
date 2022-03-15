@@ -63,7 +63,7 @@ logger.info("Importing practice.py")
 """
 str_type = str()  # noqa: WPS351
 int_type = int()  # noqa: WPS351
-float_type = float()  # noqa: WPS351
+float_type = float(1.0)  # noqa: WPS351
 complex_type = complex()  # noqa: WPS351
 lst_type = []
 tuple_type = ()
@@ -1511,7 +1511,7 @@ def read_httpd_log_with_pandas():
     #    print(parse_datetime("13/Nov/2015:11:45:42 +0000"))
     print()
     data = pd.read_csv(
-        "/home/matt/httpd.log",
+        "./input/httpd.log",
         sep=r'\s(?=(?:[^"]*"[^"]*")*[^"]*$)(?![^\[]*\])',
         engine="python",
         na_values="-",
@@ -1548,8 +1548,8 @@ def split_request(data):
 
 def get_iris_data():
     data = pd.read_csv(
-        "/home/matt/iris.data",
-        header=None,
+        "./input/iris.csv",
+        header=0,
         usecols=[0, 1, 2, 3, 4],
         names=[
             "sepal_width",
@@ -1629,14 +1629,14 @@ def practice_demo(args):
     print(data.loc[[2, 3, 4, 5], "status"])
     iris_data = get_iris_data()
     # print()
-    #   print(iris_data.head())
+    print(iris_data.head())
 
     # print()
 
     # print(iris_data.groupby("class").get_group("Iris-setosa"))
     # print()
     groups = iris_data.groupby("class").groups
-    #    print(groups.keys())
+    print(groups.keys())
 
     group_class = iris_data.groupby("class")
     #    for name, group in group_class:

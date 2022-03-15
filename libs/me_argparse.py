@@ -346,6 +346,11 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
         "opencv", help="Modules opencv Sub Command"
     )
 
+    # ds ( data science ) module sub-command
+    modules_subparser_ds = modules_subparser.add_parser(
+        "ds", help="Modules Data Science Sub Command"
+    )
+
     # request module sub-command
     modules_subparser_requests = (
         modules_subparser.add_parser(
@@ -915,7 +920,13 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                     func=libs.modules.me_modules_sys.me_modules_sys,
                     cmd="modules.sys",
                 )
+            elif args.modules_parser == "ds":
+                import libs.modules.me_modules_ds
 
+                modules_subparser_ds.set_defaults(
+                    func=libs.modules.me_modules_ds.me_modules_ds,
+                    cmd="modules.ds",
+                )
             elif args.modules_parser == "requests":
                 import libs.me_modules as me_modules
 
