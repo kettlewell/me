@@ -33,14 +33,90 @@ def np_init():
     a = np.array([1, 2, 3])
     b = np.array((3, 4, 5))
     ones = np.ones((3, 4), dtype=np.int16)
+    full = np.full((3, 4), 0.11)
+    arange_1 = np.arange(10, 30, 5)
+    arange_2 = np.arange(0, 2, 0.3)
+    linspace = np.linspace(0, 5 / 3, 6)
+    rand = np.random.rand(4, 6)
+    empty = np.empty((2, 3))
 
-    logger.debug("[{}] - {}".format(" np array A ", a))
-    logger.debug("[{}] - {}".format(" np array B ", b))
-    logger.debug("{}  {}".format("Type of np array A : ", type(a)))
-    logger.debug("{}  {}".format("Type of np array B : ", type(b)))
+    logger.debug("\n[{}] - {}\n".format(" np array A ", a))
+    logger.debug("\n[{}] - {}\n".format(" np array B ", b))
+    logger.debug("\n{}  {}\n".format("Type of np array A : ", type(a)))
+    logger.debug("\n{}  {}\n".format("Type of np array B : ", type(b)))
 
-    logger.debug("\n{}".format(ones))
+    logger.debug("\n\nONES\n{}\n".format(ones))
+    logger.debug("\n\nARANGE_1\n{}\n".format(arange_1))
+    logger.debug("\n\nARANGE_2\n{}\n".format(arange_2))
+    logger.debug("\n\nLINSPACE\n{}\n".format(linspace))
+    logger.debug("\n\nRAND\n{}\n".format(rand))
+    logger.debug("\n\nRAND.reshape\n{}\n".format(rand.reshape(12, 2)))
+    logger.debug("\n\nRAND\n{}\n".format(rand))
 
+    logger.debug("\n\nEMPTY\n{}\n".format(empty))
+
+    logger.debug("\n\nFULL\n{}\n".format(full))
+    logger.debug("FULL.itemsize  {}".format(full.itemsize))
+    logger.debug("FULL.dtype     {}".format(full.dtype))
+    logger.debug("FULL.size      {}".format(full.size))
+    logger.debug("FULL.shape     {}".format(full.shape))
+    logger.debug("FULL.ndim      {}".format(full.ndim))
+
+    full = full.reshape(2, 6)
+    logger.debug("\nFULL\n{}\n".format(full))
+
+    r1 = rand[2:5]
+    r2 = rand[2::]
+    r3 = rand[::-1]
+    r4 = rand[1:]
+
+    logger.debug("\n\nRAND\n{}\n".format(rand))
+
+    logger.debug("\nR1{}\n".format(r1))
+    logger.debug("\nR2{}\n".format(r2))
+    logger.debug("\nR3{}\n".format(r3))
+    logger.debug("\nR4{}\n".format(r4))
+    logger.debug("Type(rand): {}".format(type(rand)))
+    logger.debug("Type(rand[0]): {}".format(type(rand[0])))
+    logger.debug("Type(rand[0][0]): {}".format(type(rand[0][0])))
+
+    a = np.array([1, 2, 5, 7, 8])
+    b = [1, 2, 5, 7, 8]
+
+    try:
+        a[1:3] = -1
+        b[1:3] = -1
+    except TypeError:
+        logger.exception("Can't Assign Type - not iterable")
+
+    logger.debug("A: {}".format(a))
+    logger.debug("B: {}".format(b))
+
+    np_a = np.array([1, 2, 5, 7, 8])
+    np_a_slice = np_a[1:5]
+    np_a_slice[1] = 1000
+    logger.debug("N_A: {}".format(np_a))
+
+    p_a = [1, 2, 5, 7, 8]
+    p_b = p_a[1:5]
+    p_b[1] = 3
+
+    logger.debug("P_A: {}".format(p_a))
+    logger.debug("P_B: {}".format(p_b))
+
+    del a
+
+    a = np.arange(12).reshape(3, 4)
+    logger.debug("A: {}".format(a))
+
+    rows_on = np.array([True, False, True])
+    rows_binary = np.array([1, 0, 1])
+
+    logger.debug("\n\nA[rows_on, :] : \n{}\n".format(a[rows_on, :]))
+    logger.debug("\n\nA : \n{}\n".format(a))
+    logger.debug("\n\nA[rows_binary, :] : \n{}\n\n\n\n".format(a[rows_binary, :]))
+
+    logger.info("\n\n\n")
     logger.info("END np_init\n")
 
 
