@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Python Cookbook, 3rd Edition -- Chapter 1"""
+"""Python Cookbook, 3rd Edition -- Chapter 1
+Author's Partial Code Implemenation: 
+https://github.com/dabeaz/python-cookbook/tree/master/src/1
+"""
+
 
 import logging
 import pprint as pp
@@ -119,10 +123,98 @@ def chapter1_2():
     logger.info("chapter1_2")
     logger.info("unpacking elements from iterables of arbitrary length")
 
+    print()
+
+    def drop_first_last(grades):
+        first, *middle, last = grades
+        # return avg(middle) # unknown name 'avg'
+        return middle
+
+    gradelist = [4, 3, 4, 2, 3, 4, 2]
+    gradeavg = drop_first_last(gradelist)
+    logger.info("gradeavg: {}".format(gradeavg))
+
+    print()
+
+    user_record = ("Dave", "dave@example.com", "773-555-1212", "847-555-1212")
+    name, email, *phone_numbers = user_record
+    logger.info("name: {}".format(name))
+    logger.info("email: {}".format(email))
+    logger.info("phone numbers: {}".format(phone_numbers))
+
+    print()
+    user_record2 = ("Dave", "dave@example.com", "773-555-1212")
+    name2, email2, *phone_numbers2 = user_record2
+    logger.info("phone numbers: {}".format(phone_numbers2))
+    print()
+    user_record3 = ("Dave", "dave@example.com")
+    name3, email3, *phone_numbers3 = user_record3
+    logger.info("phone numbers: {}".format(phone_numbers3))
+    print()
+
+    *trailing, current = [10, 8, 7, 1, 9, 5, 10, 3]
+    logger.info("trailing: {}".format(trailing))
+    logger.info("current: {}".format(current))
+    print()
+
+    records = [
+        ("foo", 1, 2),
+        ("bar", "hello"),
+        ("foo", 3, 4),
+    ]
+
+    def do_foo(x, y):
+        logger.info("do_foo: {} and {}".format(x, y))
+
+    def do_bar(s):
+        logger.info("do_bar: {}".format(s))
+
+    for tag, *args in records:
+        if tag == "foo":
+            do_foo(*args)
+        elif tag == "bar":
+            do_bar(*args)
+
+    print()
+
+    line = "nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false"
+    uname, *fields, homedir, sh = line.split(":")
+    logger.info("uname: {}".format(uname))
+    logger.info("homedir: {}".format(homedir))
+    logger.info("sh: {}".format(sh))
+
+    print()
+
+    record = ("ACME", 50, 123.45, (12, 18, 2012))
+    name, *_, (*_, year) = record
+
+    logger.info("name: {}".format(name))
+    logger.info("year: {}".format(year))
+
+    print()
+
+    items = [1, 10, 7, 4, 5, 9]
+    head, *tail = items
+
+    logger.info("head: {}".format(head))
+    logger.info("tail: {}".format(tail))
+
+    def sum(items):
+        head, *tail = items
+        return head + sum(tail) if tail else head
+
+    sum_items = sum(items)
+    logger.info("sum_items: {}".format(sum_items))
+
+    print()
+
 
 def chapter1_3():
     logger.info("chapter1_3")
-    logger.info("")
+    logger.info("Keeping the Last N Items")
+    print()
+    
+
 
 
 def chapter1_4():

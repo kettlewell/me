@@ -64,9 +64,7 @@ def cmp_values(expected, actual):  # noqa: CCR001
         return False  # noqa: WPS503
 
 
-def obj_functions(  # noqa: WPS210 WPS213 CCR001
-    ob="str", pub=True, pri=False, dunder=False, gen_func=False
-):
+def obj_functions(ob="str", pub=True, pri=False, dunder=False, gen_func=False):  # noqa: WPS210 WPS213 CCR001
     """
     Get a list of all the functions/methods available to arbitrary objects
 
@@ -80,7 +78,10 @@ def obj_functions(  # noqa: WPS210 WPS213 CCR001
     import re
 
     ob_type = type(ob).__name__
+    ob_name = ob.__name__
+
     logger.debug("Object Type:  %s", ob_type)
+    logger.debug("Object Name:  %s", ob_name)
 
     if pub:
         pub_pattern = "^[0-9a-zA-Z]"
@@ -89,10 +90,10 @@ def obj_functions(  # noqa: WPS210 WPS213 CCR001
 
         if gen_func:
             for pub_func in pub_funcs:
-                print("def {}_{}(): \n    pass\n\n".format(ob_type, pub_func))
+                print("def {}_{}_{}(): \n    pass\n\n".format(ob_type, ob_name, pub_func))
 
             for pub_func in pub_funcs:
-                print("{}_{}()".format(ob_type, pub_func))
+                print("{}_{}_{}()".format(ob_type, ob_name, pub_func))
         print()
 
     if dunder:
@@ -101,7 +102,7 @@ def obj_functions(  # noqa: WPS210 WPS213 CCR001
         logger.info(dunder_funcs)
         if gen_func:
             for dunder_func in dunder_funcs:
-                print("def {}_{}(): {{ }}".format(ob_type, dunder_func))
+                print("def {}_{}_{}(): {{ }}".format(ob_type, ob_name, dunder_func))
         print()
 
     if pri:
@@ -110,5 +111,5 @@ def obj_functions(  # noqa: WPS210 WPS213 CCR001
         logger.info(pri_funcs)
         if gen_func:
             for pri_func in pri_funcs:
-                print("def {}_{}(): {{ }}".format(ob_type, pri_func))
+                print("def {}_{}_{}(): {{ }}".format(ob_type, ob_name, pri_func))
         print()

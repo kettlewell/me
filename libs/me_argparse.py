@@ -175,9 +175,9 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
     decorators_parser = subparsers.add_parser("decorators", help="decorator commands")
 
     ### RE
-
+    # MOVED TO MODULES
     # re ... regular expressions based code
-    re_parser = subparsers.add_parser("re", help="regex commands")
+    # re_parser = subparsers.add_parser("re", help="regex commands")
 
     # import libs.me_scope
     scope_parser = subparsers.add_parser("scope", help="Scope  commands")
@@ -489,6 +489,9 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
     # sys  module sub-command
     modules_subparser_sys = modules_subparser.add_parser("sys", help="Modules sys Sub Command")
 
+    # re  module sub-command
+    modules_subparser_re = modules_subparser.add_parser("re", help="Modules re Sub Command")
+
     # sysconfig  module sub-command
     modules_subparser_sysconfig = modules_subparser.add_parser(
         "sysconfig",
@@ -565,10 +568,7 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                 func=libs.me_decorators.me_decorators,
                 cmd="decorator",
             )
-        elif args.sub_parser_name == "re":
-            import libs.me_re
 
-            re_parser.set_defaults(func=libs.me_re.me_re, cmd="re")
         elif args.sub_parser_name == "scope":
             import libs.me_scope
 
@@ -727,6 +727,11 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                     func=libs.modules.me_modules_sys.me_modules_sys,
                     cmd="modules.sys",
                 )
+            elif args.modules_parser == "re":
+                import libs.modules.me_modules_re
+
+                modules_subparser_re.set_defaults(func=libs.modules.me_modules_re.me_modules_re, cmd="re")
+
             elif args.modules_parser == "ds":
                 import libs.modules.me_modules_ds
 
