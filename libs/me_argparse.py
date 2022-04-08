@@ -261,6 +261,31 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
     cookbook_subparser = cookbook_parser.add_subparsers(help="Cookbook sub-sub-command help", dest="cookbook_parser")
     cookbook_subparser_chapter1 = cookbook_subparser.add_parser("chapter1", help="Cookbook Chapter1 sub-command help")
     cookbook_subparser_chapter2 = cookbook_subparser.add_parser("chapter2", help="Cookbook Chapter2 sub-command help")
+    cookbook_subparser_chapter3 = cookbook_subparser.add_parser("chapter3", help="Cookbook Chapter3 sub-command help")
+    cookbook_subparser_chapter4 = cookbook_subparser.add_parser("chapter4", help="Cookbook Chapter4 sub-command help")
+    cookbook_subparser_chapter5 = cookbook_subparser.add_parser("chapter5", help="Cookbook Chapter5 sub-command help")
+    cookbook_subparser_chapter6 = cookbook_subparser.add_parser("chapter6", help="Cookbook Chapter6 sub-command help")
+    cookbook_subparser_chapter7 = cookbook_subparser.add_parser("chapter7", help="Cookbook Chapter7 sub-command help")
+    cookbook_subparser_chapter8 = cookbook_subparser.add_parser("chapter8", help="Cookbook Chapter8 sub-command help")
+    cookbook_subparser_chapter9 = cookbook_subparser.add_parser("chapter9", help="Cookbook Chapter9 sub-command help")
+    cookbook_subparser_chapter10 = cookbook_subparser.add_parser(
+        "chapter10", help="Cookbook Chapter10 sub-command help"
+    )
+    cookbook_subparser_chapter11 = cookbook_subparser.add_parser(
+        "chapter11", help="Cookbook Chapter11 sub-command help"
+    )
+    cookbook_subparser_chapter12 = cookbook_subparser.add_parser(
+        "chapter12", help="Cookbook Chapter12 sub-command help"
+    )
+    cookbook_subparser_chapter13 = cookbook_subparser.add_parser(
+        "chapter13", help="Cookbook Chapter13 sub-command help"
+    )
+    cookbook_subparser_chapter14 = cookbook_subparser.add_parser(
+        "chapter14", help="Cookbook Chapter14 sub-command help"
+    )
+    cookbook_subparser_chapter15 = cookbook_subparser.add_parser(
+        "chapter15", help="Cookbook Chapter15 sub-command help"
+    )
 
     """ These are unused currently, but are an example of how a sub-sub parser would work     # noqa: WPS428 B018
     #
@@ -551,6 +576,98 @@ def me_parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                 cookbook_subparser_chapter2.set_defaults(
                     func=libs.me_cookbook.chapter2.me_cookbook_chapter2,
                     cmd="chapter2",
+                )
+
+            elif args.cookbook_parser == "chapter3":
+                import libs.me_cookbook.chapter3
+
+                cookbook_subparser_chapter3.set_defaults(
+                    func=libs.me_cookbook.chapter3.me_cookbook_chapter3,
+                    cmd="chapter3",
+                )
+            elif args.cookbook_parser == "chapter4":
+                import libs.me_cookbook.chapter4
+
+                cookbook_subparser_chapter4.set_defaults(
+                    func=libs.me_cookbook.chapter4.me_cookbook_chapter4,
+                    cmd="chapter4",
+                )
+            elif args.cookbook_parser == "chapter5":
+                import libs.me_cookbook.chapter5
+
+                cookbook_subparser_chapter5.set_defaults(
+                    func=libs.me_cookbook.chapter5.me_cookbook_chapter5,
+                    cmd="chapter5",
+                )
+            elif args.cookbook_parser == "chapter6":
+                import libs.me_cookbook.chapter6
+
+                cookbook_subparser_chapter6.set_defaults(
+                    func=libs.me_cookbook.chapter6.me_cookbook_chapter6,
+                    cmd="chapter6",
+                )
+            elif args.cookbook_parser == "chapter7":
+                import libs.me_cookbook.chapter7
+
+                cookbook_subparser_chapter7.set_defaults(
+                    func=libs.me_cookbook.chapter7.me_cookbook_chapter7,
+                    cmd="chapter7",
+                )
+            elif args.cookbook_parser == "chapter8":
+                import libs.me_cookbook.chapter8
+
+                cookbook_subparser_chapter8.set_defaults(
+                    func=libs.me_cookbook.chapter8.me_cookbook_chapter8,
+                    cmd="chapter8",
+                )
+            elif args.cookbook_parser == "chapter9":
+                import libs.me_cookbook.chapter9
+
+                cookbook_subparser_chapter9.set_defaults(
+                    func=libs.me_cookbook.chapter9.me_cookbook_chapter9,
+                    cmd="chapter9",
+                )
+            elif args.cookbook_parser == "chapter10":
+                import libs.me_cookbook.chapter10
+
+                cookbook_subparser_chapter10.set_defaults(
+                    func=libs.me_cookbook.chapter10.me_cookbook_chapter10,
+                    cmd="chapter10",
+                )
+            elif args.cookbook_parser == "chapter11":
+                import libs.me_cookbook.chapter11
+
+                cookbook_subparser_chapter11.set_defaults(
+                    func=libs.me_cookbook.chapter11.me_cookbook_chapter11,
+                    cmd="chapter11",
+                )
+            elif args.cookbook_parser == "chapter12":
+                import libs.me_cookbook.chapter12
+
+                cookbook_subparser_chapter12.set_defaults(
+                    func=libs.me_cookbook.chapter12.me_cookbook_chapter12,
+                    cmd="chapter12",
+                )
+            elif args.cookbook_parser == "chapter13":
+                import libs.me_cookbook.chapter13
+
+                cookbook_subparser_chapter13.set_defaults(
+                    func=libs.me_cookbook.chapter13.me_cookbook_chapter13,
+                    cmd="chapter13",
+                )
+            elif args.cookbook_parser == "chapter14":
+                import libs.me_cookbook.chapter14
+
+                cookbook_subparser_chapter14.set_defaults(
+                    func=libs.me_cookbook.chapter14.me_cookbook_chapter14,
+                    cmd="chapter14",
+                )
+            elif args.cookbook_parser == "chapter15":
+                import libs.me_cookbook.chapter15
+
+                cookbook_subparser_chapter15.set_defaults(
+                    func=libs.me_cookbook.chapter15.me_cookbook_chapter15,
+                    cmd="chapter15",
                 )
 
         elif args.sub_parser_name == "lists":
