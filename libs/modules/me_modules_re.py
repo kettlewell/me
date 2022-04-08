@@ -7,6 +7,7 @@ https://docs.python.org/3/library/re.html
 
 import logging
 import re
+import random
 
 logger = logging.getLogger("RE")
 
@@ -164,7 +165,7 @@ def module_re_UNICODE():
 
 def module_re_VERBOSE():
     logger.info("module_re_VERBOSE")
-
+    logger.info("re.VERBOSE is a way to create explicit and commented re.compile statements")
     charref = re.compile(
         r"""
     (
@@ -205,6 +206,7 @@ def module_re_compile():
 
 
 def module_re_copyreg():
+
     pass
 
 
@@ -234,6 +236,15 @@ def module_re_findall():
 
     print()
 
+    text = "He was carefully disguised but captured quickly by police."
+
+    ly = re.findall(r"\w+ly\b", text)
+
+    logger.info(type(ly))
+    logger.info(ly)
+
+    print()
+
 
 def module_re_finditer():
     """
@@ -252,6 +263,14 @@ def module_re_finditer():
         logger.info(type(match))
         logger.info(match.group())
         logger.info(match.span())
+
+    print()
+
+    text = "He was carefully disguised but captured quickly by police."
+    p = re.compile(r"\w+ly\b")
+    matches = p.finditer(text)
+    for m in matches:
+        logger.info("{:>03d} - {:>03d}: {}".format(m.start(), m.end(), m.group(0)))
 
     print()
 
@@ -304,6 +323,56 @@ def module_re_match():
 
     print()
 
+    str = "abcdefghijk"
+    p = re.compile("((a(((b)c)def)(g(h)i)j)k)")
+    m = p.match(str)
+    if m:
+        logger.info(m)
+        logger.info(m.groups())
+        logger.info(m.group(0))
+        logger.info(m.group(1))
+        logger.info(m.group(2))
+        logger.info(m.group(3))
+        logger.info(m.group(4))
+        logger.info(m.group(5))
+        logger.info(m.group(6))
+        logger.info(m.group(7))
+
+    print()
+    m1 = re.match("([abc])+", "abcd")
+    m2 = re.match("(?:[abc])+", "abcd")
+    m3 = re.match("(([abc])+)", "abcd")
+    m4 = re.match("(?P<letter>[abc])+", "abcd")
+    m5 = re.match("(?P<letters>(?P<letter>[abc])+)", "abcd")
+
+    logger.info(m1)
+    logger.info(m1.groups())
+    logger.info(m1.group(0))
+    logger.info(m1.group(1))
+    print()
+
+    logger.info(m2)
+    logger.info(m2.groups())
+    logger.info(m2.group(0))
+    # logger.info(m2.group(1))
+    print()
+
+    logger.info(m3)
+    logger.info(m3.groups())
+    logger.info(m3.group(0))
+    logger.info(m3.group(1))
+
+    logger.info(m4)
+    logger.info(m4.groupdict())
+    print()
+    logger.info(m5)
+    logger.info(m5.string)
+    logger.info(m5.re)
+    logger.info(m5.groupdict()["letter"])
+    logger.info(m5.groupdict()["letters"])
+
+    print()
+
 
 def module_re_purge():
     pass
@@ -330,6 +399,13 @@ def module_re_search():
 
     print()
 
+    p = re.compile(r"\b(\w+)\s+\1\b")
+    g = p.search("Paris in the the spring").group()
+    gs = p.search("Paris in the the spring").groups()
+    logger.info(g)
+    logger.info(gs)
+    print()
+
 
 def module_re_split():
     logger.info("module_re_split")
@@ -349,6 +425,23 @@ def module_re_split():
 
     print()
 
+    text = """Ross McFluff: 834.345.1254 155 Elm Street
+    Ronald Heathmore: 892.345.3428 436 Finley Avenue
+    Frank Burger: 925.541.7625 662 South Dogwood Way
+    Heather Albrecht: 548.326.4584 919 Park Place"""
+
+    entries = re.split("\n+", text)
+    logger.info(type(entries))
+    logger.info(entries)
+
+    entries = [re.sub("^\s+", "", entry) for entry in entries]
+    print()
+
+    [logger.info(re.split(":? ", entry, 3)) for entry in entries]
+    # logger.info(entries_3)
+
+    print()
+
 
 def module_re_sre_compile():
     pass
@@ -359,7 +452,21 @@ def module_re_sre_parse():
 
 
 def module_re_sub():
-    pass
+    logger.info("module_re_sub")
+
+    def repl(m):
+        inner_word = list(m.group(2))
+        random.shuffle(inner_word)
+        return m.group(1) + "".join(inner_word) + m.group(3)
+
+    text = "Professor Abdolmalek, please report your absences promptly."
+
+    response = re.sub(r"(\w)(\w+)(\w)", repl, text)
+    logger.info(response)
+    response = re.sub(r"(\w)(\w+)(\w)", repl, text)
+    logger.info(response)
+
+    print()
 
 
 def module_re_subn():
