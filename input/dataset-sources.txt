@@ -1,0 +1,6 @@
+# this has a list of urls to json datasets that can 
+# be used at some point in here:
+
+https://github.com/jdorfman/awesome-json-datasets
+
+https://catalog.data.gov/dataset?res_format=JSON

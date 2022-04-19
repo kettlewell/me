@@ -1,0 +1,10 @@
+ping pong
+ding dong
+the witch is dead
+I think
+ping pong
+ding dong
+the witch is dead
+I think
+print redirect 1
+print redirect 2

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-
+"""
+This was an initial playground to quickly test out code ideas, but turned
+into my goto place, which made it messy / impossible to track.
+This file should be removed after relocating all the code examples into
+better locations.
+"""
 __name__ = "practice"  # noqa: WPS125
 # import functools
 # from functools import cache, reduce
@@ -37,8 +42,8 @@ import pytz
 import pandas as pd
 import numpy as np
 
-import libs.me_decorators as me_decorators  # noqa: WPS301
-from libs.me_utilities import obj_functions
+import me.libs.decorators as decorators  # noqa: WPS301
+from me.libs.utilities import obj_functions
 
 logger = logging.getLogger("PRACTICE")
 logger.info("Importing practice.py")
@@ -539,9 +544,7 @@ squares2 = list(map(lambda x: x**2, range(10)))
 squares3 = [x**2 for x in range(10)]
 # print(squares3)
 
-combs = [
-    [x, y] for x in [1, 2, 3] for y in [3, 1, 4] if x != y
-]  # noqa: WPS441 WPS335
+combs = [[x, y] for x in [1, 2, 3] for y in [3, 1, 4] if x != y]  # noqa: WPS441 WPS335
 # print(combs)
 
 
@@ -634,9 +637,7 @@ tel["guido"] = 4127
 # print('jack' not in tel)
 
 # d2 = dict([("sape", 4139), ("guido", 4127), ("jack", 4098)])
-d2 = dict(
-    [("sape", 4139), ("guido", 4127), ("jack", 4098)]
-)  # noqa: C406
+d2 = dict([("sape", 4139), ("guido", 4127), ("jack", 4098)])  # noqa: C406
 # print(d2)
 
 d3 = {x: x**2 for x in range(0, 12, 2)}
@@ -750,9 +751,7 @@ def rev_data(data):
 #            print(line)
 
 
-now = date.today().strftime(
-    "%m-%d-%y. %d %b %Y is a %A on the %d day of %B."
-)
+now = date.today().strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B.")
 # print(now)
 
 # print(now.strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B."))
@@ -792,11 +791,7 @@ s = b"witch which has which witches wrist watch"
 
 # full_name = lambda fn, ln: fn.strip().title() + " " + ln.strip().title()
 def full_name():
-    return (
-        lambda fn, ln: fn.strip().title()
-        + " "
-        + ln.strip().title()
-    )
+    return lambda fn, ln: fn.strip().title() + " " + ln.strip().title()
 
 
 # print(full_name("first", " last "))
@@ -1125,9 +1120,7 @@ def sin_f():
 
 
 def get_wave():
-    return lambda hz, seconds: (
-        sin_f(i, hz) for i in range(int(seconds * F))
-    )
+    return lambda hz, seconds: (sin_f(i, hz) for i in range(int(seconds * F)))
 
 
 def get_hz():
@@ -1142,11 +1135,7 @@ def parse_note():
 
 
 def get_samples():
-    return (
-        lambda note: get_wave(*parse_note(note))
-        if note
-        else get_pause(1 / 8)
-    )
+    return lambda note: get_wave(*parse_note(note)) if note else get_pause(1 / 8)
 
 
 # samples_f = chain.from_iterable(get_samples(n) for n in f"{P1},{P1},{P2}".split(","))
@@ -1203,7 +1192,7 @@ def cached_lookup(big_tuple: tuple, number_to_find: int):
     return number_to_find in big_tuple
 
 
-@me_decorators.timer
+@decorators.timer
 def lookup_testing(bt, sz, lookuptype="cached"):
     lookup_count = 0
     rng1 = 100
@@ -1226,7 +1215,7 @@ def lookup_testing(bt, sz, lookuptype="cached"):
 # lookup_testing(big_tuple,size,'cached')
 
 # https://gist.github.com/svidovich/4b40335e19ff16ab3c10eb88aefbbeee
-@me_decorators.timer
+@decorators.timer
 def generate_big_list(size) -> list:
     big_list = []
     for _ in range(size):
@@ -1286,7 +1275,7 @@ deduped_list = []
 # https://gist.github.com/svidovich/515190eff7322cdb899b3e51ebb32e9d
 
 
-@me_decorators.timer
+@decorators.timer
 def generate_big_list_and_big_set(size) -> Tuple[list, set]:
     big_list = []
     big_set = set()
@@ -1298,7 +1287,7 @@ def generate_big_list_and_big_set(size) -> Tuple[list, set]:
     return big_list, big_set
 
 
-@me_decorators.timer
+@decorators.timer
 def gen_big_list(size):
     big_list = []
     for _ in range(size):
@@ -1307,7 +1296,7 @@ def gen_big_list(size):
     return big_list
 
 
-@me_decorators.timer
+@decorators.timer
 def gen_big_set(size):
     big_set = set()
     for _ in range(size):
@@ -1316,13 +1305,13 @@ def gen_big_set(size):
     return big_set
 
 
-@me_decorators.timer
+@decorators.timer
 def gen_numbers_randint(size, rand_range=100000000):
     for _ in range(size):
         random.randint(1, rand_range)
 
 
-@me_decorators.timer
+@decorators.timer
 def gen_numbers_randfloat(size, rand_range=100000000):
     for _ in range(size):
         int(random.random() * rand_range)
@@ -1340,12 +1329,12 @@ big_list = gen_big_list(size)
 big_set = gen_big_set(size)
 
 
-@me_decorators.timer
+@decorators.timer
 def cast_list_to_set(lst):
     return set(lst)
 
 
-@me_decorators.timer
+@decorators.timer
 def cast_set_to_list(st):
     return list(st)
 
@@ -1357,13 +1346,13 @@ def cast_set_to_list(st):
 lookup_count = 10
 
 
-@me_decorators.timer
+@decorators.timer
 def set_lookup_1():
     for i in range(lookup_count):
         _ = i in big_list
 
 
-@me_decorators.timer
+@decorators.timer
 def set_lookup_2():
     for i in range(lookup_count):
         _ = i in big_set
@@ -1383,7 +1372,7 @@ list_size = 10
 xored_list = []
 
 
-@me_decorators.timer
+@decorators.timer
 def xor_looping(big_list_1, big_list_2):
     for item in big_list_1:
         if item not in big_list_2:

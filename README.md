@@ -1,6 +1,15 @@
 # me
 Me is a personal python playground to explore and capture snippets of code to learn and grow from
 
+# TODO
+Rename and restructure the files in this project
+* remove the me_ names
+* get the libs and modules better organized
+* move boiler plate files elsewhere to make things cleaner to work with / look at.
+* include some numpy, pandas, opencv, etc example code as well
+* include some graphical / plotting examples
+
+
 # command line args ( still a work in progress )
 
 ```shell
