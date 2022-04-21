@@ -10,7 +10,7 @@ import json
 
 
 from config import PROJECT_PATH
-from me.libs.decorators import log_calls
+from libs.decorators import log_calls
 
 logger = logging.getLogger("COOKBOOK-CH6")
 
@@ -27,7 +27,7 @@ def cookbook_chapter6(args=None):
     chapter6_1()
 
 
-# @log_calls(logger, "STACK_TRACE:")
+@log_calls(logger, "STACK_TRACE:")
 def chapter6_1():
     logger.info("Reading and Writing CSV Data")
 
@@ -48,11 +48,10 @@ def chapter6_1():
             row = Row(*r)
 
             # Process row
-            ## print(type(row), "    ", row)
-            ## row = tuple(convert(value) for convert, value in zip(col_types, row))
-            ## print(type(row), "    ", row)
-            # print("    ", row.sepallength)
-            pass
+            print(row.sepallength)
+            row = tuple(convert(value) for convert, value in zip(col_types, row))
+            print(row)
+            print(row[0])
 
     with open(input_path / "iris.csv", newline="") as f:
         f_csv = csv.DictReader(f)

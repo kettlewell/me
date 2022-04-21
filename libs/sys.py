@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger("SYS")
 
 
-def modules_sys(args=None):
+def sys_module(args=None):
     logger.debug("modules_sys")
     # sys_test()
     sys_module_system()

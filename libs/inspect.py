@@ -9,7 +9,7 @@ import logging
 logger = logging.getLogger("INSPECT")
 
 
-def modules_inspect(args=None):
+def inspect_module(args=None):
     logger.debug("modules_inspect")
 
     inspect_testing(args)

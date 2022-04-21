@@ -6,8 +6,6 @@ import inspect
 
 import logging
 
-logger = logging.getLogger("OPENCV")
-
 import cv2
 import numpy as np
 
@@ -16,8 +14,10 @@ from matplotlib import colors
 from matplotlib import ticker
 from matplotlib.colors import LinearSegmentedColormap
 
+logger = logging.getLogger("OPENCV")
 
-def modules_opencv(args=None):
+
+def opencv_module(args=None):
     logger.info("modules_opencv")
 
     if args:
@@ -66,7 +66,7 @@ def webcam_create_data(args):
     # defining the size of images
     (width, height) = (130, 100)
 
-    #'0' is used for my webcam,
+    # '0' is used for my webcam,
     # if you've any other camera
     # attached use '1' like this
     face_cascade = cv2.CascadeClassifier(haar_file)
@@ -293,30 +293,30 @@ def NIRPlantVideoTracking(args):
 
         cols3 = ["gray", "blue", "green", "yellow", "red"]
 
-        def create_colormap(args):
-            return LinearSegmentedColormap.from_list(name="custom1", colors=cols3)
+        # def create_colormap(args):
+        #    return LinearSegmentedColormap.from_list(name="custom1", colors=cols3)
 
         # colour bar to match grayscale units
-        def create_colorbar(fig, image):
-            position = fig.add_axes([0.125, 0.19, 0.2, 0.05])
-            norm = colors.Normalize(vmin=-1.0, vmax=1.0)
-            cbar = plt.colorbar(
-                image,
-                cax=position,
-                orientation="horizontal",
-                norm=norm,
-            )
-            cbar.ax.tick_params(labelsize=6)
-            tick_locator = ticker.MaxNLocator(nbins=3)
-            cbar.locator = tick_locator
-            cbar.update_ticks()
-            cbar.set_label(
-                "NDVI",
-                fontsize=10,
-                x=0.5,
-                y=0.5,
-                labelpad=-25,
-            )
+        # def create_colorbar(fig, image):
+        #     position = fig.add_axes([0.125, 0.19, 0.2, 0.05])
+        #     norm = colors.Normalize(vmin=-1.0, vmax=1.0)
+        #     cbar = plt.colorbar(
+        #         image,
+        #         cax=position,
+        #         orientation="horizontal",
+        #         norm=norm,
+        #     )
+        #     cbar.ax.tick_params(labelsize=6)
+        #     tick_locator = ticker.MaxNLocator(nbins=3)
+        #     cbar.locator = tick_locator
+        #     cbar.update_ticks()
+        #     cbar.set_label(
+        #         "NDVI",
+        #         fontsize=10,
+        #         x=0.5,
+        #         y=0.5,
+        #         labelpad=-25,
+        #     )
 
         image = plt.imshow(ndvi, cmap=create_colormap(colors))
         # plt.axis('off')

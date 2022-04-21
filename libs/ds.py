@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 logger = logging.getLogger("DS")
 
 
-def modules_ds(args=None):
+def ds_module(args=None):
     logger.info("\nSTART modules_ds")
     # read_pandas(do_plot=False)
     # read_httpd_log_with_pandas()

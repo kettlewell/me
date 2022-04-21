@@ -12,7 +12,7 @@ import random
 logger = logging.getLogger("RE")
 
 
-def modules_re(args=None):
+def re_module(args=None):
     logger.info("re")
 
     if args:
@@ -79,11 +79,11 @@ def matchme(regex, str):
 
 
 def re_list_functions():
-    import me.libs.utilities
+    import libs.utilities
 
     logger.debug("re_list_functions")
 
-    me.libs.utilities.obj_functions(re, gen_func=True)
+    libs.utilities.obj_functions(re, gen_func=True)
 
 
 def module_re_A():

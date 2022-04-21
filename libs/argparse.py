@@ -102,7 +102,8 @@ Stubbed in:
 
 TODO: # noqa: T101 T000
 
-I put all the calling code into the libs directory... I think that is incorrect, and should be split out differently
+I put all the calling code into the libs directory...
+I think that is incorrect, and should be split out differently
 
 
 """
@@ -309,13 +310,13 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
     modules_subparser = modules_parser.add_subparsers(help="Modules sub commands", dest="modules_parser")
 
     # astral module sub-command
-    modules_subparser_astral = modules_subparser.add_parser("astral", help="Modules astral Sub Command")
+    astral_parser = subparsers.add_parser("astral", help="astral module Command")
 
     # opencv module sub-command
-    modules_subparser_opencv = modules_subparser.add_parser("opencv", help="Modules opencv Sub Command")
+    opencv_parser = subparsers.add_parser("opencv", help="Modules opencv Sub Command")
 
     # ds ( data science ) module sub-command
-    modules_subparser_ds = modules_subparser.add_parser("ds", help="Modules Data Science Sub Command")
+    ds_parser = subparsers.add_parser("ds", help="Modules Data Science Sub Command")
 
     # request module sub-command
     modules_subparser_requests = modules_subparser.add_parser("requests", help="Modules Requests Sub Command")
@@ -512,10 +513,10 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
     modules_subparser_timeit = modules_subparser.add_parser("timeit", help="Modules timeit Sub Command")
 
     # sys  module sub-command
-    modules_subparser_sys = modules_subparser.add_parser("sys", help="Modules sys Sub Command")
+    sys_parser = subparsers.add_parser("sys", help="Modules sys Sub Command")
 
     # re  module sub-command
-    modules_subparser_re = modules_subparser.add_parser("re", help="Modules re Sub Command")
+    re_parser = subparsers.add_parser("re", help="Modules re Sub Command")
 
     # sysconfig  module sub-command
     modules_subparser_sysconfig = modules_subparser.add_parser(
@@ -524,7 +525,7 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
     )
 
     # inspect  module sub-command
-    modules_subparser_inspect = modules_subparser.add_parser("inspect", help="Modules inspect Sub Command")
+    inspect_parser = subparsers.add_parser("inspect", help="Modules inspect Sub Command")
 
     # importlib  module sub-command
     modules_subparser_importlib = modules_subparser.add_parser(
@@ -815,6 +816,46 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                 func=me.libs.internet.internet,
                 cmd="internet",
             )
+        elif args.sub_parser_name == "astral":
+            import libs.astral
+
+            astral_parser.set_defaults(
+                func=libs.astral.astral_module,
+                cmd="modules.astral",
+            )
+        elif args.sub_parser_name == "opencv":
+            import libs.opencv
+
+            opencv_parser.set_defaults(
+                func=libs.opencv.opencv_module,
+                cmd="modules.opencv",
+            )
+        elif args.sub_parser_name == "sys":
+            import libs.sys
+
+            sys_parser.set_defaults(
+                func=libs.sys.sys_module,
+                cmd="modules.sys",
+            )
+        elif args.sub_parser_name == "re":
+            import libs.re
+
+            re_parser.set_defaults(func=libs.re.re_module, cmd="re")
+
+        elif args.sub_parser_name == "ds":
+            import libs.ds
+
+            ds_parser.set_defaults(
+                func=libs.ds.ds_module,
+                cmd="modules.ds",
+            )
+        elif args.sub_parser_name == "inspect":
+            import libs.inspect
+
+            inspect_parser.set_defaults(
+                func=libs.inspect.inspect_module,
+                cmd="modules.inspect",
+            )
         elif args.sub_parser_name == "modules":
             if not args.modules_parser:
                 import me.libs.modules as modules
@@ -823,39 +864,7 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                     func=modules.modules,
                     cmd="modules",
                 )
-            elif args.modules_parser == "astral":
-                import me.libs.modules.modules_astral
 
-                modules_subparser_astral.set_defaults(
-                    func=me.libs.modules.modules_astral.modules_astral,
-                    cmd="modules.astral",
-                )
-            elif args.modules_parser == "opencv":
-                import me.libs.modules.modules_opencv
-
-                modules_subparser_opencv.set_defaults(
-                    func=me.libs.modules.modules_opencv.modules_opencv,
-                    cmd="modules.opencv",
-                )
-            elif args.modules_parser == "sys":
-                import me.libs.modules.modules_sys
-
-                modules_subparser_sys.set_defaults(
-                    func=me.libs.modules.modules_sys.modules_sys,
-                    cmd="modules.sys",
-                )
-            elif args.modules_parser == "re":
-                import me.libs.modules.modules_re
-
-                modules_subparser_re.set_defaults(func=me.libs.modules.modules_re.modules_re, cmd="re")
-
-            elif args.modules_parser == "ds":
-                import me.libs.modules.modules_ds
-
-                modules_subparser_ds.set_defaults(
-                    func=me.libs.modules.modules_ds.modules_ds,
-                    cmd="modules.ds",
-                )
             elif args.modules_parser == "requests":
                 import me.libs.modules as modules
 
@@ -1235,13 +1244,7 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                     func=modules.modules_sysconfig,
                     cmd="modules.sysconfig",
                 )
-            elif args.modules_parser == "inspect":
-                import me.libs.modules.modules_inspect
 
-                modules_subparser_inspect.set_defaults(
-                    func=me.libs.modules.modules_inspect.modules_inspect,
-                    cmd="modules.inspect",
-                )
             elif args.modules_parser == "importlib":
                 import me.libs.modules as modules
 
