@@ -14,6 +14,8 @@ if sys.path[0] != ROOT:
 
 # Path object
 PROJECT_PATH = Path(ROOT)
+INPUT_PATH = PROJECT_PATH / "input"
+OUTPUT_PATH = PROJECT_PATH / "output"
 
 # TODO: create string object version of the below functions ( maybe? )
 # ALT: instead of inspect.stack, try sys._current_frames()

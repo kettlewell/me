@@ -72,7 +72,6 @@ Stubbed in:
   * ctypes
   * threading
   * multiprocessing
-  * concurrent
   * subprocess
   * sched
   * queue
@@ -159,6 +158,10 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
         description="Sub commands for executing specific code blocks",
         dest="sub_parser_name",
     )
+    ### Concurrency
+
+    # concurrency .... concurrency based code
+    concurrency_parser = subparsers.add_parser("concurrency", help="concurrency commands")
 
     ### LISTS
 
@@ -432,12 +435,6 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
         help="Modules multiprocessing Sub Command",
     )
 
-    # concurrent module sub-command
-    modules_subparser_concurrent = modules_subparser.add_parser(
-        "concurrent",
-        help="Modules concurrent Sub Command",
-    )
-
     # subprocess  module sub-command
     modules_subparser_subprocess = modules_subparser.add_parser(
         "subprocess",
@@ -670,6 +667,11 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                     func=cookbook.chapter15.cookbook_chapter15,
                     cmd="chapter15",
                 )
+
+        elif args.sub_parser_name == "concurrency":
+            import libs.concurrency
+
+            concurrency_parser.set_defaults(func=libs.concurrency.concurrency, cmd="concurrency")
 
         elif args.sub_parser_name == "lists":
             import me.libs.lists
@@ -1081,13 +1083,6 @@ def parse():  # noqa: WPS210 WPS213 WPS231 C901 CCR001 CFQ001
                 modules_subparser_multiprocessing.set_defaults(
                     func=modules.modules_multiprocessing,
                     cmd="modules.multiprocessing",
-                )
-            elif args.modules_parser == "concurrent":
-                import me.libs.modules as modules
-
-                modules_subparser_concurrent.set_defaults(
-                    func=modules.modules_concurrent,
-                    cmd="modules.concurrent",
                 )
             elif args.modules_parser == "subprocess":
                 import me.libs.modules as modules
